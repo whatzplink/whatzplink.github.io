@@ -12,21 +12,20 @@ const t = useTranslations(lang);
 
 <section
   aria-labelledby="hero-primary-h1"
-  class="min-h-[calc(100dvh-68px)] flex flex-col justify-center px-3 py-4 sm:px-6 md:py-6 mx-auto max-w-6xl"
+  class="min-h-[calc(100dvh-72px)] flex flex-col justify-center px-4 py-8 sm:px-6 md:py-12 mx-auto max-w-4xl"
 >
-  <!-- Primary H1 Heading (Strictly above the fold with oversized typography) -->
-  <div class="text-center mb-4 md:mb-5">
+  <!-- Clean, Focused Hero Heading -->
+  <div class="text-center mb-6 sm:mb-8">
     <h1
       id="hero-primary-h1"
-      style="font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.12;"
+      style="font-size: clamp(1.85rem, 4vw, 3rem); line-height: 1.15;"
       class="font-extrabold tracking-tight text-[#1A2E15] dark:text-[#FFF8CF] flex flex-wrap items-center justify-center gap-3"
     >
-      <!-- Oversized 56px SVG Icon -->
       <span
-        class="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#2A7C13] text-[#FFFFFF] shadow-md"
+        class="inline-flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-2xl bg-[#2A7C13] text-[#FFFFFF] shadow-md"
         aria-hidden="true"
       >
-        <svg class="h-9 w-9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="h-7 w-7 sm:h-8 sm:w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
           <path d="M8 12h8" />
           <path d="M12 8v8" />
@@ -34,313 +33,276 @@ const t = useTranslations(lang);
       </span>
       <span>{t.hero.h1}</span>
     </h1>
-    <p class="mt-2 text-[1.15rem] md:text-xl font-medium text-[#3B5234] dark:text-[#FBE6C2] max-w-3xl mx-auto">
+    <p class="mt-2.5 text-base sm:text-lg md:text-xl font-medium text-[#3B5234] dark:text-[#FBE6C2] max-w-2xl mx-auto">
       {t.hero.subtitle}
     </p>
   </div>
 
-  <!-- Interactive Generator Box Div -->
+  <!-- Main Simple Generator Card -->
   <div
     id="generator-workspace-box"
-    class="w-full rounded-3xl border-2 border-[#76C457] dark:border-[#2A7C13] bg-[#FFFFFF] dark:bg-[#1B2E17] p-4 sm:p-6 md:p-7 shadow-workspace transition-all duration-300"
+    class="w-full max-w-2xl mx-auto rounded-3xl border-2 border-[#76C457] dark:border-[#2A7C13] bg-[#FFFFFF] dark:bg-[#1B2E17] p-5 sm:p-7 md:p-8 shadow-workspace transition-all duration-300"
   >
-    <!-- Mode Selector Pills -->
-    <div
-      role="tablist"
-      aria-label="Generator Modes"
-      class="flex flex-wrap items-center justify-center sm:justify-start gap-2 sm:gap-3 pb-4 mb-5 border-b-2 border-[#FBE6C2] dark:border-[#243B1F]"
-    >
+    <form id="wa-generator-form" class="space-y-6" novalidate>
+      <!-- 1. Country Code & Phone Number -->
+      <div class="space-y-2.5">
+        <label
+          for="wa-phone-input"
+          class="block text-base sm:text-lg font-extrabold text-[#1A2E15] dark:text-[#FFF8CF]"
+        >
+          {t.generator.step1Label}
+        </label>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <!-- Searchable Country Code Selector -->
+          <div class="relative w-full sm:w-44 shrink-0" id="country-selector-wrapper">
+            <button
+              type="button"
+              id="country-selector-btn"
+              aria-label={t.generator.step1Label}
+              aria-haspopup="listbox"
+              aria-expanded="false"
+              class="flex h-14 w-full items-center justify-between gap-2 rounded-2xl border-2 border-[#76C457] focus:border-[#2A7C13] bg-[#FFF8CF] dark:bg-[#152412] px-4 text-left text-lg font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] transition-all hover:border-[#2A7C13] focus:outline-none focus:ring-2 focus:ring-[#2A7C13]"
+            >
+              <span id="selected-country-display" class="flex items-center gap-2 truncate">
+                <span class="inline-flex items-center justify-center rounded-md bg-[#2A7C13] px-1.5 py-0.5 text-xs font-extrabold text-[#FFFFFF]">US</span>
+                <span>+1</span>
+              </span>
+              <svg class="h-5 w-5 shrink-0 text-[#2A7C13] dark:text-[#76C457]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </button>
+
+            <!-- Dropdown Panel -->
+            <div
+              id="country-dropdown-panel"
+              class="hidden absolute left-0 mt-2 w-full sm:w-80 rounded-2xl border-2 border-[#2A7C13] bg-[#FFFFFF] dark:bg-[#1B2E17] p-2.5 shadow-2xl z-40"
+            >
+              <input
+                type="text"
+                id="country-search-input"
+                aria-label={t.generator.countrySearchPlaceholder}
+                placeholder={t.generator.countrySearchPlaceholder}
+                autocomplete="off"
+                class="w-full rounded-xl border-2 border-[#76C457] focus:border-[#2A7C13] bg-[#FFF8CF] dark:bg-[#152412] px-3.5 py-2.5 text-sm sm:text-base font-semibold text-[#1A2E15] dark:text-[#FFF8CF] placeholder-[#3B5234]/70 dark:placeholder-[#FBE6C2]/60 focus:outline-none mb-2"
+              />
+              <ul
+                id="country-list"
+                role="listbox"
+                class="max-h-60 overflow-y-auto divide-y divide-[#FBE6C2]/50 dark:divide-[#243B1F]"
+              >
+                {
+                  COUNTRIES.map((c) => (
+                    <li
+                      role="option"
+                      data-dial={c.dial}
+                      data-flag={c.flag}
+                      data-iso={c.code}
+                      data-name={c.name.toLowerCase()}
+                      data-code={c.code.toLowerCase()}
+                      class="country-option-item flex cursor-pointer items-center justify-between rounded-xl px-3 py-2.5 text-sm sm:text-base font-bold text-[#1A2E15] dark:text-[#FFF8CF] hover:bg-[#FBE6C2] dark:hover:bg-[#243B1F] transition-colors"
+                    >
+                      <span class="flex items-center gap-2.5 truncate">
+                        <span class="inline-flex w-8 shrink-0 items-center justify-center rounded bg-[#FBE6C2] dark:bg-[#243B1F] px-1.5 py-0.5 text-xs font-extrabold text-[#2A7C13] dark:text-[#76C457]">
+                          {c.code}
+                        </span>
+                        <span class="truncate">{c.name}</span>
+                      </span>
+                      <span class="ml-2 rounded-lg bg-[#FFF8CF] dark:bg-[#152412] px-2 py-0.5 text-xs sm:text-sm font-extrabold text-[#2A7C13] dark:text-[#76C457]">
+                        +{c.dial}
+                      </span>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </div>
+
+          <!-- Phone Number Input -->
+          <div class="relative flex-1">
+            <input
+              type="tel"
+              id="wa-phone-input"
+              inputmode="tel"
+              placeholder={t.generator.phonePlaceholder}
+              aria-describedby="phone-validation-badge"
+              class="h-14 w-full rounded-2xl border-2 border-[#76C457] focus:border-[#2A7C13] bg-[#FFF8CF] dark:bg-[#152412] px-4 text-lg sm:text-xl font-extrabold tracking-wide text-[#1A2E15] dark:text-[#FFF8CF] placeholder-[#3B5234]/50 dark:placeholder-[#FBE6C2]/40 transition-all focus:outline-none focus:ring-2 focus:ring-[#2A7C13]"
+            />
+          </div>
+        </div>
+
+        <!-- Subtle Validation Status (Hidden until user types or clicks Create) -->
+        <div
+          id="phone-validation-badge"
+          role="status"
+          aria-live="polite"
+          data-ready={t.generator.validationReady}
+          data-cleaned={t.generator.validationCleaned}
+          data-empty={t.generator.validationEmpty}
+          data-invalid={t.generator.validationInvalid}
+          class="hidden items-center gap-2 rounded-xl bg-[#FBE6C2]/80 dark:bg-[#243B1F] px-3.5 py-2 text-xs sm:text-sm font-bold text-[#1A2E15] dark:text-[#FFF8CF]"
+        >
+          <span
+            id="validation-icon-dot"
+            class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#2A7C13] text-xs text-[#FFFFFF]"
+          >
+            ✓
+          </span>
+          <span id="validation-status-text">{t.generator.validationReady}</span>
+        </div>
+      </div>
+
+      <!-- 2. Custom Pre-filled Message (Optional) -->
+      <div class="space-y-2.5">
+        <label
+          for="wa-message-input"
+          class="block text-base sm:text-lg font-extrabold text-[#1A2E15] dark:text-[#FFF8CF]"
+        >
+          {t.generator.step2Label}
+        </label>
+        <textarea
+          id="wa-message-input"
+          rows="3"
+          placeholder={t.generator.messagePlaceholder}
+          class="w-full rounded-2xl border-2 border-[#76C457] focus:border-[#2A7C13] bg-[#FFF8CF] dark:bg-[#152412] p-4 text-base sm:text-lg font-semibold text-[#1A2E15] dark:text-[#FFF8CF] placeholder-[#3B5234]/55 dark:placeholder-[#FBE6C2]/45 transition-all focus:outline-none focus:ring-2 focus:ring-[#2A7C13] resize-y"
+        ></textarea>
+
+        <!-- Clean 1-Click Quick Message Chips -->
+        <div class="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-1">
+          <span class="text-xs font-extrabold uppercase tracking-wider text-[#3B5234] dark:text-[#FBE6C2] mr-1">
+            {t.generator.quickChipsLabel}
+          </span>
+          <button
+            type="button"
+            data-chip-text={t.generator.chipOrderText}
+            class="quick-chip-btn rounded-full border border-[#76C457] bg-[#FBE6C2]/70 dark:bg-[#243B1F] px-3 py-1 text-xs sm:text-sm font-bold text-[#1A2E15] dark:text-[#FFF8CF] transition-all hover:bg-[#2A7C13] hover:text-[#FFFFFF] hover:border-[#2A7C13] active:scale-95"
+          >
+            🛒 {t.generator.chipOrder}
+          </button>
+          <button
+            type="button"
+            data-chip-text={t.generator.chipInfoText}
+            class="quick-chip-btn rounded-full border border-[#76C457] bg-[#FBE6C2]/70 dark:bg-[#243B1F] px-3 py-1 text-xs sm:text-sm font-bold text-[#1A2E15] dark:text-[#FFF8CF] transition-all hover:bg-[#2A7C13] hover:text-[#FFFFFF] hover:border-[#2A7C13] active:scale-95"
+          >
+            💬 {t.generator.chipInfo}
+          </button>
+          <button
+            type="button"
+            data-chip-text={t.generator.chipBookText}
+            class="quick-chip-btn rounded-full border border-[#76C457] bg-[#FBE6C2]/70 dark:bg-[#243B1F] px-3 py-1 text-xs sm:text-sm font-bold text-[#1A2E15] dark:text-[#FFF8CF] transition-all hover:bg-[#2A7C13] hover:text-[#FFFFFF] hover:border-[#2A7C13] active:scale-95"
+          >
+            📅 {t.generator.chipBook}
+          </button>
+          <button
+            type="button"
+            data-chip-text={t.generator.chipQuoteText}
+            class="quick-chip-btn rounded-full border border-[#76C457] bg-[#FBE6C2]/70 dark:bg-[#243B1F] px-3 py-1 text-xs sm:text-sm font-bold text-[#1A2E15] dark:text-[#FFF8CF] transition-all hover:bg-[#2A7C13] hover:text-[#FFFFFF] hover:border-[#2A7C13] active:scale-95"
+          >
+            💼 {t.generator.chipQuote}
+          </button>
+        </div>
+      </div>
+
+      <!-- 3. Primary "Create Link" CTA Button -->
       <button
-        type="button"
-        role="tab"
-        id="tab-btn-create"
-        aria-selected="true"
-        aria-controls="panel-create"
-        data-mode="create"
-        class="mode-pill-btn flex items-center gap-2 rounded-2xl px-4 py-2.5 sm:px-5 sm:py-3 text-base sm:text-[1.05rem] font-extrabold transition-all duration-200 bg-[#2A7C13] text-[#FFFFFF] shadow-sm"
+        type="submit"
+        id="create-link-submit-btn"
+        class="w-full flex min-h-[60px] items-center justify-center gap-3 rounded-2xl bg-[#2A7C13] px-6 py-4 text-lg sm:text-xl font-extrabold text-[#FFFFFF] shadow-lg transition-all duration-200 hover:shadow-emerald-glow hover:ring-2 hover:ring-[#76C457] active:scale-[0.99] focus:outline-none focus:ring-4 focus:ring-[#76C457]"
       >
-        <svg class="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <svg class="h-6 w-6 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
           <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
         </svg>
         <span>{t.hero.modeCreate}</span>
       </button>
+    </form>
 
-      <button
-        type="button"
-        role="tab"
-        id="tab-btn-templates"
-        aria-selected="false"
-        aria-controls="panel-templates"
-        data-mode="templates"
-        class="mode-pill-btn flex items-center gap-2 rounded-2xl px-4 py-2.5 sm:px-5 sm:py-3 text-base sm:text-[1.05rem] font-extrabold transition-all duration-200 bg-[#FBE6C2] dark:bg-[#243B1F] text-[#1A2E15] dark:text-[#FFF8CF] hover:border-[#2A7C13]"
-      >
-        <svg class="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-          <polyline points="14 2 14 8 20 8" />
-          <line x1="16" y1="13" x2="8" y2="13" />
-          <line x1="16" y1="17" x2="8" y2="17" />
-        </svg>
-        <span>{t.hero.modeTemplates}</span>
-      </button>
-
-      <button
-        type="button"
-        role="tab"
-        id="tab-btn-history"
-        aria-selected="false"
-        aria-controls="panel-history"
-        data-mode="history"
-        class="mode-pill-btn flex items-center gap-2 rounded-2xl px-4 py-2.5 sm:px-5 sm:py-3 text-base sm:text-[1.05rem] font-extrabold transition-all duration-200 bg-[#FBE6C2] dark:bg-[#243B1F] text-[#1A2E15] dark:text-[#FFF8CF] hover:border-[#2A7C13]"
-      >
-        <svg class="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="10" />
-          <polyline points="12 6 12 12 16 14" />
-        </svg>
-        <span>{t.hero.modeHistory}</span>
-        <span
-          id="history-count-badge"
-          class="ml-1 inline-flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[#2A7C13] px-1.5 text-xs font-extrabold text-[#FFFFFF]"
-        >
-          0
-        </span>
-      </button>
-    </div>
-
-    <!-- TAB PANEL 1: Create wa.me Link & QR (Default Active) -->
-    <div id="panel-create" role="tabpanel" aria-labelledby="tab-btn-create" class="space-y-5">
-      <!-- Top Grid: Step 1 (Phone Input) + Step 2 (Custom Message & Chips) -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        <!-- Step 1: Country Code Searchable Selector + Phone Number Input (5 cols) -->
-        <div class="lg:col-span-5 flex flex-col justify-between space-y-3">
-          <div>
-            <label
-              for="wa-phone-input"
-              class="block text-[1.15rem] font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] mb-2"
-            >
-              {t.generator.step1Label}
-            </label>
-
-            <div class="flex flex-col sm:flex-row gap-2.5">
-              <!-- Searchable Country Code Selector Wrapper -->
-              <div class="relative sm:w-44 shrink-0" id="country-selector-wrapper">
-                <button
-                  type="button"
-                  id="country-selector-btn"
-                  aria-label={t.generator.step1Label}
-                  aria-haspopup="listbox"
-                  aria-expanded="false"
-                  class="flex h-14 w-full items-center justify-between gap-2 rounded-2xl border-2 border-[#76C457] focus:border-[#2A7C13] bg-[#FFF8CF] dark:bg-[#152412] px-3.5 text-left text-[1.15rem] font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] transition-all focus:outline-none focus:ring-2 focus:ring-[#2A7C13]"
-                >
-                  <span id="selected-country-display" class="flex items-center gap-2 truncate">
-                    <span class="text-2xl leading-none">🇺🇸</span>
-                    <span>+1</span>
-                  </span>
-                  <svg class="h-5 w-5 shrink-0 text-[#2A7C13] dark:text-[#76C457]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <polyline points="6 9 12 15 18 9" />
-                  </svg>
-                </button>
-
-                <!-- Searchable Country Dropdown List -->
-                <div
-                  id="country-dropdown-panel"
-                  class="hidden absolute left-0 mt-2 w-72 sm:w-80 rounded-2xl border-2 border-[#2A7C13] bg-[#FFFFFF] dark:bg-[#1B2E17] p-2 shadow-2xl z-40"
-                >
-                  <input
-                    type="text"
-                    id="country-search-input"
-                    aria-label={t.generator.countrySearchPlaceholder}
-                    placeholder={t.generator.countrySearchPlaceholder}
-                    autocomplete="off"
-                    class="w-full rounded-xl border-2 border-[#76C457] focus:border-[#2A7C13] bg-[#FFF8CF] dark:bg-[#152412] px-3 py-2 text-base font-semibold text-[#1A2E15] dark:text-[#FFF8CF] placeholder-[#3B5234]/70 dark:placeholder-[#FBE6C2]/60 focus:outline-none mb-2"
-                  />
-                  <ul
-                    id="country-list"
-                    role="listbox"
-                    class="max-h-60 overflow-y-auto divide-y divide-[#FBE6C2]/50 dark:divide-[#243B1F]"
-                  >
-                    {
-                      COUNTRIES.map((c) => (
-                        <li
-                          role="option"
-                          data-dial={c.dial}
-                          data-flag={c.flag}
-                          data-name={c.name.toLowerCase()}
-                          data-code={c.code.toLowerCase()}
-                          class="country-option-item flex cursor-pointer items-center justify-between rounded-xl px-3 py-2.5 text-base font-bold text-[#1A2E15] dark:text-[#FFF8CF] hover:bg-[#FBE6C2] dark:hover:bg-[#243B1F] transition-colors"
-                        >
-                          <span class="flex items-center gap-2.5 truncate">
-                            <span class="text-xl">{c.flag}</span>
-                            <span class="truncate">{c.name}</span>
-                          </span>
-                          <span class="ml-2 rounded-lg bg-[#FFF8CF] dark:bg-[#152412] px-2 py-0.5 text-sm font-extrabold text-[#2A7C13] dark:text-[#76C457]">
-                            +{c.dial}
-                          </span>
-                        </li>
-                      ))
-                    }
-                  </ul>
-                </div>
-              </div>
-
-              <!-- Big Phone Number Input Field -->
-              <div class="relative flex-1">
-                <input
-                  type="tel"
-                  id="wa-phone-input"
-                  inputmode="tel"
-                  placeholder={t.generator.phonePlaceholder}
-                  value="2345678900"
-                  aria-describedby="phone-validation-badge"
-                  class="h-14 w-full rounded-2xl border-2 border-[#76C457] focus:border-[#2A7C13] bg-[#FFF8CF] dark:bg-[#152412] px-4 text-xl font-extrabold tracking-wide text-[#1A2E15] dark:text-[#FFF8CF] placeholder-[#3B5234]/50 dark:placeholder-[#FBE6C2]/40 transition-all focus:outline-none focus:ring-2 focus:ring-[#2A7C13]"
-                />
-              </div>
-            </div>
-          </div>
-
-          <!-- Live Phone Validation & Sanitization Badge -->
-          <div
-            id="phone-validation-badge"
+    <!-- REVEALED DETAILS SECTION (Hidden initially; smoothly shown when user clicks Create Link) -->
+    <div
+      id="generated-results-section"
+      class="hidden mt-8 pt-7 border-t-2 border-[#76C457]/60 dark:border-[#2A7C13] space-y-6 animate-bubble-pop"
+    >
+      <!-- Generated Link Readout + Primary Actions -->
+      <div class="rounded-2xl border-2 border-[#76C457] dark:border-[#2A7C13] bg-[#FFF8CF] dark:bg-[#152412] p-4 sm:p-5 space-y-4">
+        <div class="space-y-2">
+          <span class="block text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#2A7C13] dark:text-[#76C457]">
+            {t.generator.readoutLabel}
+          </span>
+          <code
+            id="generated-url-readout"
             role="status"
             aria-live="polite"
-            data-ready={t.generator.validationReady}
-            data-cleaned={t.generator.validationCleaned}
-            data-empty={t.generator.validationEmpty}
-            data-invalid={t.generator.validationInvalid}
-            class="flex items-center gap-2.5 rounded-2xl bg-[#FBE6C2] dark:bg-[#243B1F] px-3.5 py-2.5 text-sm sm:text-base font-bold text-[#1A2E15] dark:text-[#FFF8CF] border border-[#76C457]/60"
+            aria-atomic="true"
+            class="block w-full break-all rounded-xl border-2 border-[#76C457] bg-[#FFFFFF] dark:bg-[#1B2E17] px-4 py-3 font-mono text-sm sm:text-base font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] select-all"
           >
-            <span
-              id="validation-icon-dot"
-              class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#2A7C13] text-[#FFFFFF]"
-            >
-              ✓
-            </span>
-            <span id="validation-status-text">{t.generator.validationReady}</span>
-          </div>
+            https://wa.me/12345678900
+          </code>
         </div>
 
-        <!-- Step 2: Custom Pre-filled Message + 1-Click Pill Chips (7 cols) -->
-        <div class="lg:col-span-7 flex flex-col justify-between space-y-2.5">
-          <div>
-            <label
-              for="wa-message-input"
-              class="block text-[1.15rem] font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] mb-2"
-            >
-              {t.generator.step2Label}
-            </label>
-            <textarea
-              id="wa-message-input"
-              rows="2"
-              placeholder={t.generator.messagePlaceholder}
-              class="w-full rounded-2xl border-2 border-[#76C457] focus:border-[#2A7C13] bg-[#FFF8CF] dark:bg-[#152412] p-3.5 text-[1.15rem] font-semibold text-[#1A2E15] dark:text-[#FFF8CF] placeholder-[#3B5234]/60 dark:placeholder-[#FBE6C2]/50 transition-all focus:outline-none focus:ring-2 focus:ring-[#2A7C13] resize-none"
-            >{t.generator.chipOrderText}</textarea>
-          </div>
+        <!-- Accessible Copied Notification Banner -->
+        <div
+          id="copy-notification-banner"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          class="hidden rounded-xl bg-[#2A7C13] px-4 py-2.5 text-center text-sm font-extrabold text-[#FFFFFF] shadow-sm transition-all"
+        >
+          {t.generator.copiedLinkBtn}
+        </div>
 
-          <!-- 1-Click Pill Chips -->
-          <div class="flex flex-wrap items-center gap-2 pt-1">
-            <span class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#3B5234] dark:text-[#FBE6C2] mr-1">
-              {t.generator.quickChipsLabel}
-            </span>
-            <button
-              type="button"
-              data-chip-text={t.generator.chipOrderText}
-              class="quick-chip-btn rounded-full border-2 border-[#76C457] bg-[#FBE6C2] dark:bg-[#243B1F] px-3.5 py-1.5 text-sm font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] transition-all hover:bg-[#2A7C13] hover:text-[#FFFFFF] hover:border-[#2A7C13] active:scale-95"
-            >
-              🛒 {t.generator.chipOrder}
-            </button>
-            <button
-              type="button"
-              data-chip-text={t.generator.chipInfoText}
-              class="quick-chip-btn rounded-full border-2 border-[#76C457] bg-[#FBE6C2] dark:bg-[#243B1F] px-3.5 py-1.5 text-sm font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] transition-all hover:bg-[#2A7C13] hover:text-[#FFFFFF] hover:border-[#2A7C13] active:scale-95"
-            >
-              💬 {t.generator.chipInfo}
-            </button>
-            <button
-              type="button"
-              data-chip-text={t.generator.chipBookText}
-              class="quick-chip-btn rounded-full border-2 border-[#76C457] bg-[#FBE6C2] dark:bg-[#243B1F] px-3.5 py-1.5 text-sm font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] transition-all hover:bg-[#2A7C13] hover:text-[#FFFFFF] hover:border-[#2A7C13] active:scale-95"
-            >
-              📅 {t.generator.chipBook}
-            </button>
-            <button
-              type="button"
-              data-chip-text={t.generator.chipQuoteText}
-              class="quick-chip-btn rounded-full border-2 border-[#76C457] bg-[#FBE6C2] dark:bg-[#243B1F] px-3.5 py-1.5 text-sm font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] transition-all hover:bg-[#2A7C13] hover:text-[#FFFFFF] hover:border-[#2A7C13] active:scale-95"
-            >
-              💼 {t.generator.chipQuote}
-            </button>
-          </div>
+        <!-- Action Buttons (Responsive across Mobile, Tablet, Desktop) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- Copy Link Button -->
+          <button
+            type="button"
+            id="copy-wa-link-btn"
+            aria-label={t.generator.copyLinkBtn}
+            data-copy-text={t.generator.copyLinkBtn}
+            data-copied-text={t.generator.copiedLinkBtn}
+            class="flex min-h-[54px] h-auto items-center justify-center gap-2.5 rounded-2xl bg-[#2A7C13] px-5 py-3 text-base font-extrabold leading-snug text-[#FFFFFF] shadow-md transition-all duration-200 hover:shadow-emerald-glow hover:ring-2 hover:ring-[#76C457] active:scale-98"
+          >
+            <svg class="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            </svg>
+            <span id="copy-btn-label" aria-live="polite">{t.generator.copyLinkBtn}</span>
+          </button>
+
+          <!-- Test Link in WhatsApp Button -->
+          <a
+            id="test-wa-link-btn"
+            href="https://wa.me/12345678900"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={t.generator.testWhatsappBtn}
+            class="flex min-h-[54px] h-auto items-center justify-center gap-2.5 rounded-2xl border-2 border-[#2A7C13] bg-[#FBE6C2] dark:bg-[#243B1F] px-5 py-3 text-base font-extrabold leading-snug text-[#1A2E15] dark:text-[#FFF8CF] shadow-sm transition-all duration-200 hover:bg-[#2A7C13] hover:text-[#FFFFFF] hover:shadow-emerald-glow active:scale-98"
+          >
+            <svg class="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+            <span>{t.generator.testWhatsappBtn}</span>
+          </a>
         </div>
       </div>
 
-      <!-- Step 3: Two-Column Split — Left: Live WhatsApp Chat Bubble Preview (#FBE6C2 card) | Right: Instant High-Res HTML5 <canvas> QR Code bordered in #2A7C13 -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
-        <!-- Left Column: Realistic Animated Live WhatsApp Chat Bubble Preview on #FBE6C2 Card (7 cols) -->
+      <!-- QR Code + Live Chat Preview Grid (Responsive 1-col on mobile, 2-col on tablet/desktop) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-stretch">
+        <!-- QR Code Card -->
         <div
-          class="lg:col-span-7 flex flex-col justify-between rounded-2xl border-2 border-[#76C457] dark:border-[#2A7C13] bg-[#FBE6C2] dark:bg-[#152412] p-4 sm:p-5 shadow-inner"
-        >
-          <!-- Chat Header Bar -->
-          <div class="flex items-center justify-between border-b border-[#76C457]/50 pb-3 mb-3">
-            <div class="flex items-center gap-3">
-              <!-- Oversized 56px Avatar Icon -->
-              <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#2A7C13] text-[#FFFFFF] shadow-sm">
-                <svg class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                </svg>
-              </div>
-              <div>
-                <div class="text-sm font-bold uppercase tracking-wider text-[#2A7C13] dark:text-[#76C457]">
-                  {t.generator.previewTitle}
-                </div>
-                <div class="flex items-center gap-2 text-lg font-extrabold text-[#1A2E15] dark:text-[#FFF8CF]">
-                  <span>{t.generator.previewRecipientLabel}</span>
-                  <span id="preview-phone-number" class="font-mono text-[#2A7C13] dark:text-[#76C457]">+1 2345678900</span>
-                </div>
-                <div class="flex items-center gap-1.5 text-xs font-bold text-[#3B5234] dark:text-[#FBE6C2]">
-                  <span class="inline-block h-2.5 w-2.5 rounded-full bg-[#2A7C13] dark:bg-[#76C457] animate-ping"></span>
-                  <span>{t.generator.previewOnline}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Animated WhatsApp Outgoing Message Bubble -->
-          <div class="my-auto py-2 flex flex-col items-end">
-            <div
-              id="chat-bubble-container"
-              data-placeholder={t.generator.previewPlaceholderBubble}
-              class="animate-bubble-pop relative max-w-[92%] rounded-2xl rounded-tr-sm border-2 border-[#76C457] bg-[#FFF8CF] dark:bg-[#1B2E17] px-4 py-3.5 text-[1.15rem] font-semibold text-[#1A2E15] dark:text-[#FFF8CF] shadow-md"
-            >
-              <p id="preview-bubble-text" class="whitespace-pre-wrap break-words leading-relaxed">
-                {t.generator.chipOrderText}
-              </p>
-              <div class="mt-1.5 flex items-center justify-end gap-1 text-xs font-bold text-[#2A7C13] dark:text-[#76C457]">
-                <span id="preview-timestamp">12:00</span>
-                <!-- Double Checkmark Icon -->
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <polyline points="20 6 9 17 4 12" />
-                  <polyline points="22 10 13 19 11 17" />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right Column: Instant High-Res HTML5 <canvas> QR Code bordered in #2A7C13 (5 cols) -->
-        <div
-          class="lg:col-span-5 flex flex-col items-center justify-between gap-4 rounded-2xl border-2 border-[#2A7C13] bg-[#FFF8CF] dark:bg-[#152412] p-4 sm:p-5 text-center"
+          class="flex flex-col items-center justify-between gap-4 rounded-2xl border-2 border-[#2A7C13] bg-[#FFF8CF] dark:bg-[#152412] p-5 text-center"
         >
           <div class="space-y-1">
-            <h2 class="text-lg sm:text-xl font-extrabold text-[#1A2E15] dark:text-[#FFF8CF]">
+            <h2 class="text-lg font-extrabold text-[#1A2E15] dark:text-[#FFF8CF]">
               {t.generator.qrTitle}
             </h2>
-            <p class="text-xs sm:text-sm font-semibold text-[#3B5234] dark:text-[#FBE6C2] max-w-xs mx-auto">
+            <p class="text-xs sm:text-sm font-semibold text-[#3B5234] dark:text-[#FBE6C2]">
               {t.generator.qrSubtitle}
             </p>
           </div>
 
-          <!-- QR Code HTML5 Canvas Container bordered in #2A7C13 -->
-          <div class="relative flex items-center justify-center rounded-2xl border-4 border-[#2A7C13] bg-[#FFFFFF] p-3 shadow-md">
+          <div class="flex items-center justify-center rounded-2xl border-4 border-[#2A7C13] bg-[#FFFFFF] p-3 shadow-md">
             <canvas
               id="wa-qr-canvas"
               width="200"
@@ -350,236 +312,126 @@ const t = useTranslations(lang);
             ></canvas>
           </div>
 
-          <!-- Secondary SVG Download Link -->
-          <button
-            type="button"
-            id="download-qr-svg-btn"
-            class="inline-flex min-h-[42px] items-center justify-center gap-2 rounded-xl border-2 border-[#2A7C13] bg-[#FBE6C2] dark:bg-[#243B1F] px-5 py-2 text-sm font-extrabold whitespace-nowrap text-[#1A2E15] dark:text-[#FFF8CF] transition-all hover:bg-[#2A7C13] hover:text-[#FFFFFF]"
-          >
-            <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="7 10 12 15 17 10" />
-              <line x1="12" y1="15" x2="12" y2="3" />
-            </svg>
-            <span>{t.generator.downloadQrSvgBtn}</span>
-          </button>
-        </div>
-      </div>
+          <!-- Download QR Buttons (PNG + SVG) -->
+          <div class="flex flex-wrap items-center justify-center gap-2.5 w-full">
+            <button
+              type="button"
+              id="download-qr-png-btn"
+              aria-label={t.generator.downloadQrPngBtn}
+              class="flex-1 min-h-[44px] inline-flex items-center justify-center gap-2 rounded-xl bg-[#2A7C13] px-4 py-2.5 text-sm font-extrabold text-[#FFFFFF] shadow-sm transition-all hover:shadow-emerald-glow"
+            >
+              <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              <span>PNG</span>
+            </button>
 
-      <!-- Step 4: Instant Actions — Prominent #FFF8CF URL Readout Box + Oversized #2A7C13 Action Buttons -->
-      <div class="rounded-2xl border-2 border-[#76C457] dark:border-[#2A7C13] bg-[#FFF8CF] dark:bg-[#152412] p-4 sm:p-5 space-y-4">
-        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
-          <span class="text-sm sm:text-base font-extrabold uppercase tracking-wider text-[#2A7C13] dark:text-[#76C457] shrink-0">
-            {t.generator.readoutLabel}
-          </span>
-          <code
-            id="generated-url-readout"
-            role="status"
-            aria-live="polite"
-            aria-atomic="true"
-            class="block w-full lg:flex-1 truncate rounded-xl border-2 border-[#76C457] bg-[#FFFFFF] dark:bg-[#1B2E17] px-4 py-3 font-mono text-sm sm:text-base md:text-lg font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] select-all"
-          >
-            https://wa.me/12345678900?text=Hi!%20I%20want%20to%20order%20your%20product.%20Could%20you%20share%20availability%20and%20details%3F
-          </code>
+            <button
+              type="button"
+              id="download-qr-svg-btn"
+              aria-label={t.generator.downloadQrSvgBtn}
+              class="flex-1 min-h-[44px] inline-flex items-center justify-center gap-2 rounded-xl border-2 border-[#2A7C13] bg-[#FBE6C2] dark:bg-[#243B1F] px-4 py-2.5 text-sm font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] transition-all hover:bg-[#2A7C13] hover:text-[#FFFFFF]"
+            >
+              <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              <span>SVG</span>
+            </button>
+          </div>
         </div>
 
-        <!-- Accessible Copied Notification Banner (aria-live="polite") -->
+        <!-- Live WhatsApp Chat Bubble Preview Card -->
         <div
-          id="copy-notification-banner"
-          role="status"
-          aria-live="polite"
-          aria-atomic="true"
-          class="hidden rounded-xl bg-[#2A7C13] px-4 py-2 text-center text-sm font-extrabold text-[#FFFFFF] shadow-sm transition-all"
+          class="flex flex-col justify-between rounded-2xl border-2 border-[#76C457] dark:border-[#2A7C13] bg-[#FBE6C2] dark:bg-[#152412] p-5 shadow-inner"
         >
-          {t.generator.copiedLinkBtn}
-        </div>
+          <div class="flex items-center gap-3 border-b border-[#76C457]/50 pb-3 mb-3">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#2A7C13] text-[#FFFFFF] shadow-sm">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
+            </div>
+            <div class="min-w-0">
+              <div class="text-xs font-extrabold uppercase tracking-wider text-[#2A7C13] dark:text-[#76C457]">
+                {t.generator.previewTitle}
+              </div>
+              <div class="truncate text-base font-extrabold text-[#1A2E15] dark:text-[#FFF8CF]">
+                <span id="preview-phone-number" class="font-mono text-[#2A7C13] dark:text-[#76C457]">+1</span>
+              </div>
+              <div class="flex items-center gap-1.5 text-xs font-bold text-[#3B5234] dark:text-[#FBE6C2]">
+                <span class="inline-block h-2 w-2 rounded-full bg-[#2A7C13] dark:bg-[#76C457]"></span>
+                <span>{t.generator.previewOnline}</span>
+              </div>
+            </div>
+          </div>
 
-        <!-- Massive Rounded Action Buttons (Responsive across Mobile, Tablet, and Desktop) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-          <!-- 1. Copy WhatsApp Link Button -->
-          <button
-            type="button"
-            id="copy-wa-link-btn"
-            aria-label={t.generator.copyLinkBtn}
-            data-copy-text={t.generator.copyLinkBtn}
-            data-copied-text={t.generator.copiedLinkBtn}
-            class="md:col-span-2 lg:col-span-1 flex min-h-[56px] h-auto items-center justify-center gap-2.5 rounded-2xl bg-[#2A7C13] px-5 py-3 text-base sm:text-[1.1rem] font-extrabold leading-snug text-[#FFFFFF] shadow-md transition-all duration-200 hover:shadow-emerald-glow hover:ring-2 hover:ring-[#76C457] active:scale-98"
-          >
-            <svg id="copy-btn-icon" class="h-6 w-6 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+          <div class="my-auto py-3 flex flex-col items-end">
+            <div
+              id="chat-bubble-container"
+              data-placeholder={t.generator.previewPlaceholderBubble}
+              class="animate-bubble-pop relative w-full rounded-2xl rounded-tr-sm border-2 border-[#76C457] bg-[#FFF8CF] dark:bg-[#1B2E17] px-4 py-3 text-base font-semibold text-[#1A2E15] dark:text-[#FFF8CF] shadow-sm"
+            >
+              <p id="preview-bubble-text" class="whitespace-pre-wrap break-words leading-relaxed">
+                {t.generator.previewPlaceholderBubble}
+              </p>
+              <div class="mt-1.5 flex items-center justify-end gap-1 text-xs font-bold text-[#2A7C13] dark:text-[#76C457]">
+                <span id="preview-timestamp">12:00</span>
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12" />
+                  <polyline points="22 10 13 19 11 17" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Saved Links History (Compact Collapsible inside Result Area) -->
+      <details class="group rounded-2xl border-2 border-[#76C457]/60 dark:border-[#2A7C13] bg-[#FFF8CF]/60 dark:bg-[#152412] p-4">
+        <summary class="flex cursor-pointer list-none items-center justify-between text-sm sm:text-base font-extrabold text-[#1A2E15] dark:text-[#FFF8CF]">
+          <span class="flex items-center gap-2">
+            <svg class="h-5 w-5 text-[#2A7C13] dark:text-[#76C457]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
             </svg>
-            <span id="copy-btn-label" aria-live="polite">{t.generator.copyLinkBtn}</span>
-          </button>
+            <span>{t.hero.modeHistory}</span>
+            <span
+              id="history-count-badge"
+              class="inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#2A7C13] px-1.5 text-xs font-extrabold text-[#FFFFFF]"
+            >
+              0
+            </span>
+          </span>
+          <svg class="h-5 w-5 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </summary>
 
-          <!-- 2. Download QR Code (PNG) Button -->
-          <button
-            type="button"
-            id="download-qr-png-btn"
-            aria-label={t.generator.downloadQrPngBtn}
-            class="flex min-h-[56px] h-auto items-center justify-center gap-2.5 rounded-2xl border-2 border-[#2A7C13] bg-[#76C457] dark:bg-[#2A7C13] px-5 py-3 text-base sm:text-[1.1rem] font-extrabold leading-snug text-[#1A2E15] dark:text-[#FFFFFF] shadow-md transition-all duration-200 hover:bg-[#2A7C13] hover:text-[#FFFFFF] hover:shadow-emerald-glow active:scale-98"
-          >
-            <svg class="h-6 w-6 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="7 10 12 15 17 10" />
-              <line x1="12" y1="15" x2="12" y2="3" />
-            </svg>
-            <span>{t.generator.downloadQrPngBtn}</span>
-          </button>
-
-          <!-- 3. Test Link in WhatsApp Button -->
-          <a
-            id="test-wa-link-btn"
-            href="https://wa.me/12345678900"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={t.generator.testWhatsappBtn}
-            class="flex min-h-[56px] h-auto items-center justify-center gap-2.5 rounded-2xl border-2 border-[#2A7C13] bg-[#FBE6C2] dark:bg-[#243B1F] px-5 py-3 text-base sm:text-[1.1rem] font-extrabold leading-snug text-[#1A2E15] dark:text-[#FFF8CF] shadow-sm transition-all duration-200 hover:bg-[#2A7C13] hover:text-[#FFFFFF] hover:shadow-emerald-glow active:scale-98"
-          >
-            <svg class="h-6 w-6 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-              <polyline points="15 3 21 3 21 9" />
-              <line x1="10" y1="14" x2="21" y2="3" />
-            </svg>
-            <span>{t.generator.testWhatsappBtn}</span>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB PANEL 2: Quick Business Templates -->
-    <div id="panel-templates" role="tabpanel" aria-labelledby="tab-btn-templates" class="hidden space-y-5">
-      <div class="text-center sm:text-left">
-        <h2 class="text-2xl font-extrabold text-[#1A2E15] dark:text-[#FFF8CF]">
-          {t.generator.templatesHeading}
-        </h2>
-        <p class="text-[1.1rem] font-medium text-[#3B5234] dark:text-[#FBE6C2]">
-          {t.generator.templatesSubheading}
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- Template 1: Order Inquiry -->
-        <div class="flex flex-col justify-between rounded-2xl border-2 border-[#76C457] bg-[#FFF8CF] dark:bg-[#152412] p-5 space-y-4">
-          <div class="space-y-2">
-            <div class="inline-flex items-center gap-2 rounded-xl bg-[#FBE6C2] dark:bg-[#243B1F] px-3 py-1 text-sm font-extrabold text-[#2A7C13] dark:text-[#76C457]">
-              🛒 {t.generator.templateOrderTitle}
-            </div>
-            <p class="text-sm font-semibold text-[#3B5234] dark:text-[#FBE6C2]">
-              {t.generator.templateOrderDesc}
+        <div class="mt-4 space-y-3 pt-3 border-t border-[#76C457]/40">
+          <div class="flex items-center justify-between gap-2">
+            <p class="text-xs font-semibold text-[#3B5234] dark:text-[#FBE6C2]">
+              {t.generator.historySubheading}
             </p>
-            <blockquote class="rounded-xl border border-[#76C457] bg-[#FFFFFF] dark:bg-[#1B2E17] p-3 text-base font-bold text-[#1A2E15] dark:text-[#FFF8CF]">
-              "{t.generator.chipOrderText}"
-            </blockquote>
+            <button
+              type="button"
+              id="clear-history-btn"
+              class="rounded-lg border border-[#2A7C13] bg-[#FBE6C2] dark:bg-[#243B1F] px-2.5 py-1 text-xs font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] hover:bg-[#2A7C13] hover:text-[#FFFFFF] transition-colors"
+            >
+              {t.generator.historyClearBtn}
+            </button>
           </div>
-          <button
-            type="button"
-            data-template-msg={t.generator.chipOrderText}
-            class="apply-template-btn w-full rounded-xl bg-[#2A7C13] py-3 text-base font-extrabold text-[#FFFFFF] transition-all hover:shadow-emerald-glow"
-          >
-            {t.generator.useTemplateBtn} →
-          </button>
+          <div
+            id="history-list-container"
+            data-empty-text={t.generator.historyEmpty}
+            data-load-label={t.generator.historyLoadBtn}
+            data-copy-label={t.generator.historyCopyBtn}
+            class="space-y-2"
+          ></div>
         </div>
-
-        <!-- Template 2: Customer Support -->
-        <div class="flex flex-col justify-between rounded-2xl border-2 border-[#76C457] bg-[#FFF8CF] dark:bg-[#152412] p-5 space-y-4">
-          <div class="space-y-2">
-            <div class="inline-flex items-center gap-2 rounded-xl bg-[#FBE6C2] dark:bg-[#243B1F] px-3 py-1 text-sm font-extrabold text-[#2A7C13] dark:text-[#76C457]">
-              🎧 {t.generator.templateSupportTitle}
-            </div>
-            <p class="text-sm font-semibold text-[#3B5234] dark:text-[#FBE6C2]">
-              {t.generator.templateSupportDesc}
-            </p>
-            <blockquote class="rounded-xl border border-[#76C457] bg-[#FFFFFF] dark:bg-[#1B2E17] p-3 text-base font-bold text-[#1A2E15] dark:text-[#FFF8CF]">
-              "{t.generator.chipInfoText}"
-            </blockquote>
-          </div>
-          <button
-            type="button"
-            data-template-msg={t.generator.chipInfoText}
-            class="apply-template-btn w-full rounded-xl bg-[#2A7C13] py-3 text-base font-extrabold text-[#FFFFFF] transition-all hover:shadow-emerald-glow"
-          >
-            {t.generator.useTemplateBtn} →
-          </button>
-        </div>
-
-        <!-- Template 3: Appointment Booking -->
-        <div class="flex flex-col justify-between rounded-2xl border-2 border-[#76C457] bg-[#FFF8CF] dark:bg-[#152412] p-5 space-y-4">
-          <div class="space-y-2">
-            <div class="inline-flex items-center gap-2 rounded-xl bg-[#FBE6C2] dark:bg-[#243B1F] px-3 py-1 text-sm font-extrabold text-[#2A7C13] dark:text-[#76C457]">
-              📅 {t.generator.templateBookingTitle}
-            </div>
-            <p class="text-sm font-semibold text-[#3B5234] dark:text-[#FBE6C2]">
-              {t.generator.templateBookingDesc}
-            </p>
-            <blockquote class="rounded-xl border border-[#76C457] bg-[#FFFFFF] dark:bg-[#1B2E17] p-3 text-base font-bold text-[#1A2E15] dark:text-[#FFF8CF]">
-              "{t.generator.chipBookText}"
-            </blockquote>
-          </div>
-          <button
-            type="button"
-            data-template-msg={t.generator.chipBookText}
-            class="apply-template-btn w-full rounded-xl bg-[#2A7C13] py-3 text-base font-extrabold text-[#FFFFFF] transition-all hover:shadow-emerald-glow"
-          >
-            {t.generator.useTemplateBtn} →
-          </button>
-        </div>
-
-        <!-- Template 4: Price Quote Request -->
-        <div class="flex flex-col justify-between rounded-2xl border-2 border-[#76C457] bg-[#FFF8CF] dark:bg-[#152412] p-5 space-y-4">
-          <div class="space-y-2">
-            <div class="inline-flex items-center gap-2 rounded-xl bg-[#FBE6C2] dark:bg-[#243B1F] px-3 py-1 text-sm font-extrabold text-[#2A7C13] dark:text-[#76C457]">
-              💼 {t.generator.templateQuoteTitle}
-            </div>
-            <p class="text-sm font-semibold text-[#3B5234] dark:text-[#FBE6C2]">
-              {t.generator.templateQuoteDesc}
-            </p>
-            <blockquote class="rounded-xl border border-[#76C457] bg-[#FFFFFF] dark:bg-[#1B2E17] p-3 text-base font-bold text-[#1A2E15] dark:text-[#FFF8CF]">
-              "{t.generator.chipQuoteText}"
-            </blockquote>
-          </div>
-          <button
-            type="button"
-            data-template-msg={t.generator.chipQuoteText}
-            class="apply-template-btn w-full rounded-xl bg-[#2A7C13] py-3 text-base font-extrabold text-[#FFFFFF] transition-all hover:shadow-emerald-glow"
-          >
-            {t.generator.useTemplateBtn} →
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB PANEL 3: Saved Links History (Last 5 Links in LocalStorage) -->
-    <div id="panel-history" role="tabpanel" aria-labelledby="tab-btn-history" class="hidden space-y-5">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div>
-          <h2 class="text-2xl font-extrabold text-[#1A2E15] dark:text-[#FFF8CF]">
-            {t.generator.historyHeading}
-          </h2>
-          <p class="text-base font-medium text-[#3B5234] dark:text-[#FBE6C2]">
-            {t.generator.historySubheading}
-          </p>
-        </div>
-        <button
-          type="button"
-          id="clear-history-btn"
-          class="self-start sm:self-auto rounded-xl border-2 border-[#2A7C13] bg-[#FBE6C2] dark:bg-[#243B1F] px-4 py-2 text-sm font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] hover:bg-[#2A7C13] hover:text-[#FFFFFF] transition-colors"
-        >
-          {t.generator.historyClearBtn}
-        </button>
-      </div>
-
-      <div
-        id="history-list-container"
-        data-empty-text={t.generator.historyEmpty}
-        data-load-label={t.generator.historyLoadBtn}
-        data-copy-label={t.generator.historyCopyBtn}
-        class="space-y-3"
-      >
-        <div class="rounded-2xl border-2 border-dashed border-[#76C457] bg-[#FFF8CF] dark:bg-[#152412] p-8 text-center text-lg font-bold text-[#3B5234] dark:text-[#FBE6C2]">
-          {t.generator.historyEmpty}
-        </div>
-      </div>
+      </details>
     </div>
   </div>
 </section>
@@ -589,7 +441,7 @@ const t = useTranslations(lang);
 
   interface SavedLinkItem {
     dial: string;
-    flag: string;
+    iso: string;
     phone: string;
     message: string;
     url: string;
@@ -599,7 +451,6 @@ const t = useTranslations(lang);
   const STORAGE_KEY = 'whatzplink_history_v1';
 
   function sanitizePhoneNumber(raw: string): { cleaned: string; hadInvalidChars: boolean } {
-    // Strip spaces, dashes, brackets, plus signs, dots, and leading zeros
     const withoutFormatting = raw.replace(/[\s\-\(\)\+\.]/g, '');
     const digitsOnly = withoutFormatting.replace(/\D/g, '');
     const strippedLeadingZeros = digitsOnly.replace(/^0+/, '');
@@ -609,7 +460,7 @@ const t = useTranslations(lang);
 
   function buildWaMeUrl(dial: string, cleanPhone: string, message: string): string {
     const cleanDial = dial.replace(/\D/g, '');
-    const fullNumber = `${cleanDial}${cleanPhone || '2345678900'}`;
+    const fullNumber = `${cleanDial}${cleanPhone}`;
     const trimmedMessage = message.trim();
     if (!trimmedMessage) {
       return `https://wa.me/${fullNumber}`;
@@ -619,8 +470,13 @@ const t = useTranslations(lang);
 
   function initWhatsAppGenerator() {
     let selectedDial = '1';
-    let selectedFlag = '🇺🇸';
+    let selectedIso = 'US';
     let latestSvgString = '';
+    let isResultVisible = false;
+
+    const workspaceBox = document.getElementById('generator-workspace-box');
+    const form = document.getElementById('wa-generator-form');
+    const resultsSection = document.getElementById('generated-results-section');
 
     const countryBtn = document.getElementById('country-selector-btn');
     const countryDisplay = document.getElementById('selected-country-display');
@@ -648,47 +504,15 @@ const t = useTranslations(lang);
     const downloadSvgBtn = document.getElementById('download-qr-svg-btn');
     const testWaBtn = document.getElementById('test-wa-link-btn') as HTMLAnchorElement | null;
 
-    const modeBtns = document.querySelectorAll('.mode-pill-btn');
-    const panelCreate = document.getElementById('panel-create');
-    const panelTemplates = document.getElementById('panel-templates');
-    const panelHistory = document.getElementById('panel-history');
     const historyBadge = document.getElementById('history-count-badge');
     const historyContainer = document.getElementById('history-list-container');
     const clearHistoryBtn = document.getElementById('clear-history-btn');
 
-    // Update current time in preview bubble
     if (previewTimestamp) {
       const now = new Date();
       previewTimestamp.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     }
 
-    // Mode Switching Function
-    function switchMode(mode: string) {
-      modeBtns.forEach((btn) => {
-        const isTarget = btn.getAttribute('data-mode') === mode;
-        btn.setAttribute('aria-selected', String(isTarget));
-        if (isTarget) {
-          btn.className =
-            'mode-pill-btn flex items-center gap-2 rounded-2xl px-4 py-2.5 sm:px-5 sm:py-3 text-base sm:text-[1.05rem] font-extrabold transition-all duration-200 bg-[#2A7C13] text-[#FFFFFF] shadow-sm';
-        } else {
-          btn.className =
-            'mode-pill-btn flex items-center gap-2 rounded-2xl px-4 py-2.5 sm:px-5 sm:py-3 text-base sm:text-[1.05rem] font-extrabold transition-all duration-200 bg-[#FBE6C2] dark:bg-[#243B1F] text-[#1A2E15] dark:text-[#FFF8CF] hover:border-[#2A7C13]';
-        }
-      });
-
-      panelCreate?.classList.toggle('hidden', mode !== 'create');
-      panelTemplates?.classList.toggle('hidden', mode !== 'templates');
-      panelHistory?.classList.toggle('hidden', mode !== 'history');
-    }
-
-    modeBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const mode = btn.getAttribute('data-mode') || 'create';
-        switchMode(mode);
-      });
-    });
-
-    // Render QR Code onto HTML5 Canvas + Prepare SVG
     async function renderQrCode(url: string) {
       if (!qrCanvas) return;
       try {
@@ -716,53 +540,55 @@ const t = useTranslations(lang);
       }
     }
 
-    // Core Real-Time Update Engine
-    function updateEngine(triggerBubbleAnim = false) {
-      if (!phoneInput || !messageInput) return;
+    function updateEngine(showValidation = false) {
+      if (!phoneInput || !messageInput) return false;
 
       const rawPhone = phoneInput.value;
       const { cleaned, hadInvalidChars } = sanitizePhoneNumber(rawPhone);
+      const isValid = cleaned.length >= 6;
 
-      // Update Validation Badge
       if (validationBadge && validationText && validationDot) {
-        if (!rawPhone.trim()) {
-          validationText.textContent = validationBadge.getAttribute('data-empty') || '';
-          validationDot.textContent = '•';
-          validationDot.className = 'flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#76C457] text-[#1A2E15]';
-        } else if (cleaned.length < 6) {
-          validationText.textContent = validationBadge.getAttribute('data-invalid') || '';
-          validationDot.textContent = '!';
-          validationDot.className = 'flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#3B5234] text-[#FFF8CF]';
-        } else if (hadInvalidChars) {
-          validationText.textContent = validationBadge.getAttribute('data-cleaned') || '';
-          validationDot.textContent = '✓';
-          validationDot.className = 'flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#2A7C13] text-[#FFFFFF]';
-        } else {
-          validationText.textContent = validationBadge.getAttribute('data-ready') || '';
-          validationDot.textContent = '✓';
-          validationDot.className = 'flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#2A7C13] text-[#FFFFFF]';
+        if (showValidation || rawPhone.trim().length > 0) {
+          validationBadge.classList.remove('hidden');
+          validationBadge.classList.add('flex');
+
+          if (!rawPhone.trim()) {
+            validationText.textContent = validationBadge.getAttribute('data-empty') || '';
+            validationDot.textContent = '!';
+            validationDot.className = 'flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#3B5234] text-xs text-[#FFF8CF]';
+          } else if (!isValid) {
+            validationText.textContent = validationBadge.getAttribute('data-invalid') || '';
+            validationDot.textContent = '!';
+            validationDot.className = 'flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#3B5234] text-xs text-[#FFF8CF]';
+          } else if (hadInvalidChars) {
+            validationText.textContent = validationBadge.getAttribute('data-cleaned') || '';
+            validationDot.textContent = '✓';
+            validationDot.className = 'flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#2A7C13] text-xs text-[#FFFFFF]';
+          } else {
+            validationText.textContent = validationBadge.getAttribute('data-ready') || '';
+            validationDot.textContent = '✓';
+            validationDot.className = 'flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#2A7C13] text-xs text-[#FFFFFF]';
+          }
         }
       }
 
-      const msg = messageInput.value;
-      const fullUrl = buildWaMeUrl(selectedDial, cleaned, msg);
+      if (!isValid && !isResultVisible) {
+        return false;
+      }
 
-      // Update Preview Phone & Chat Bubble
+      const safePhone = cleaned || '2345678900';
+      const msg = messageInput.value;
+      const fullUrl = buildWaMeUrl(selectedDial, safePhone, msg);
+
       if (previewPhone) {
-        previewPhone.textContent = `+${selectedDial} ${cleaned || '2345678900'}`;
+        previewPhone.textContent = `+${selectedDial} ${safePhone}`;
       }
 
       if (previewBubbleText && chatBubbleContainer) {
         const placeholder = chatBubbleContainer.getAttribute('data-placeholder') || '';
         previewBubbleText.textContent = msg.trim() ? msg : placeholder;
-        if (triggerBubbleAnim) {
-          chatBubbleContainer.classList.remove('animate-bubble-pop');
-          void chatBubbleContainer.offsetWidth;
-          chatBubbleContainer.classList.add('animate-bubble-pop');
-        }
       }
 
-      // Update URL Readout & Test Button
       if (urlReadout) {
         urlReadout.textContent = fullUrl;
       }
@@ -770,11 +596,36 @@ const t = useTranslations(lang);
         testWaBtn.href = fullUrl;
       }
 
-      // Update QR Code
       renderQrCode(fullUrl);
+      return isValid;
     }
 
-    // Country Selector Dropdown Interaction
+    // Handle Form Submit ("Create wa.me Link & QR" Button)
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!phoneInput) return;
+
+      const isValid = updateEngine(true);
+      if (!isValid) {
+        phoneInput.focus();
+        phoneInput.classList.remove('animate-pulse-emerald');
+        void phoneInput.offsetWidth;
+        phoneInput.classList.add('animate-pulse-emerald');
+        return;
+      }
+
+      isResultVisible = true;
+      workspaceBox?.classList.remove('max-w-2xl');
+      workspaceBox?.classList.add('max-w-3xl');
+      resultsSection?.classList.remove('hidden');
+      saveCurrentLinkToHistory();
+
+      setTimeout(() => {
+        resultsSection?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 80);
+    });
+
+    // Country Selector Dropdown
     if (countryBtn && countryPanel && countryWrapper) {
       countryBtn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -810,21 +661,27 @@ const t = useTranslations(lang);
     countryOptions.forEach((item) => {
       item.addEventListener('click', () => {
         selectedDial = item.getAttribute('data-dial') || '1';
-        selectedFlag = item.getAttribute('data-flag') || '🇺🇸';
+        selectedIso = item.getAttribute('data-iso') || 'US';
         if (countryDisplay) {
-          countryDisplay.innerHTML = `<span class="text-2xl leading-none">${selectedFlag}</span><span>+${selectedDial}</span>`;
+          countryDisplay.innerHTML = `<span class="inline-flex items-center justify-center rounded-md bg-[#2A7C13] px-1.5 py-0.5 text-xs font-extrabold text-[#FFFFFF]">${selectedIso}</span><span>+${selectedDial}</span>`;
         }
         countryPanel?.classList.add('hidden');
         countryBtn?.setAttribute('aria-expanded', 'false');
-        updateEngine(true);
+        if (isResultVisible) updateEngine(false);
       });
     });
 
-    // Phone & Message Real-Time Input Listeners
-    phoneInput?.addEventListener('input', () => updateEngine(false));
-    messageInput?.addEventListener('input', () => updateEngine(true));
+    // Live updates if results section is already open
+    phoneInput?.addEventListener('input', () => {
+      if (isResultVisible || (phoneInput.value.trim().length > 0)) {
+        updateEngine(false);
+      }
+    });
+    messageInput?.addEventListener('input', () => {
+      if (isResultVisible) updateEngine(false);
+    });
 
-    // 1-Click Quick Chips with Pulse Animation
+    // 1-Click Quick Chips
     const quickChips = document.querySelectorAll('.quick-chip-btn');
     quickChips.forEach((chip) => {
       chip.addEventListener('click', () => {
@@ -834,28 +691,12 @@ const t = useTranslations(lang);
           messageInput.classList.remove('animate-pulse-emerald');
           void messageInput.offsetWidth;
           messageInput.classList.add('animate-pulse-emerald');
-          updateEngine(true);
+          if (isResultVisible) updateEngine(false);
         }
       });
     });
 
-    // 1-Click Business Templates Tab Buttons
-    const templateBtns = document.querySelectorAll('.apply-template-btn');
-    templateBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const templateMsg = btn.getAttribute('data-template-msg') || '';
-        if (messageInput) {
-          messageInput.value = templateMsg;
-          switchMode('create');
-          messageInput.classList.remove('animate-pulse-emerald');
-          void messageInput.offsetWidth;
-          messageInput.classList.add('animate-pulse-emerald');
-          updateEngine(true);
-        }
-      });
-    });
-
-    // LocalStorage History Management (Last 5 Links)
+    // LocalStorage History Management
     function loadHistory(): SavedLinkItem[] {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
@@ -870,15 +711,15 @@ const t = useTranslations(lang);
     function saveCurrentLinkToHistory() {
       if (!phoneInput || !messageInput) return;
       const { cleaned } = sanitizePhoneNumber(phoneInput.value);
-      const finalPhone = cleaned || '2345678900';
+      if (cleaned.length < 6) return;
       const msg = messageInput.value.trim();
-      const url = buildWaMeUrl(selectedDial, finalPhone, msg);
+      const url = buildWaMeUrl(selectedDial, cleaned, msg);
 
       const currentList = loadHistory().filter((item) => item.url !== url);
       const newItem: SavedLinkItem = {
         dial: selectedDial,
-        flag: selectedFlag,
-        phone: finalPhone,
+        iso: selectedIso,
+        phone: cleaned,
         message: msg,
         url,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -904,7 +745,7 @@ const t = useTranslations(lang);
 
       if (items.length === 0) {
         historyContainer.innerHTML = `
-          <div class="rounded-2xl border-2 border-dashed border-[#76C457] bg-[#FFF8CF] dark:bg-[#152412] p-8 text-center text-lg font-bold text-[#3B5234] dark:text-[#FBE6C2]">
+          <div class="rounded-xl border border-dashed border-[#76C457] bg-[#FFFFFF] dark:bg-[#1B2E17] p-4 text-center text-sm font-bold text-[#3B5234] dark:text-[#FBE6C2]">
             ${emptyText}
           </div>
         `;
@@ -914,13 +755,14 @@ const t = useTranslations(lang);
       historyContainer.innerHTML = items
         .map(
           (item, idx) => `
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border-2 border-[#76C457] bg-[#FFF8CF] dark:bg-[#152412] p-4">
-            <div class="min-w-0 flex-1 space-y-1">
-              <div class="flex items-center gap-2 text-base font-extrabold text-[#1A2E15] dark:text-[#FFF8CF]">
-                <span>${item.flag} +${item.dial} ${item.phone}</span>
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-xl border border-[#76C457] bg-[#FFFFFF] dark:bg-[#1B2E17] p-3">
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center gap-2 text-sm font-extrabold text-[#1A2E15] dark:text-[#FFF8CF]">
+                <span class="rounded bg-[#2A7C13] px-1.5 py-0.5 text-[10px] text-[#FFFFFF]">${item.iso || 'WA'}</span>
+                <span>+${item.dial} ${item.phone}</span>
                 <span class="text-xs font-semibold text-[#3B5234] dark:text-[#FBE6C2]">• ${item.timestamp}</span>
               </div>
-              <div class="truncate font-mono text-sm font-bold text-[#2A7C13] dark:text-[#76C457]">
+              <div class="truncate font-mono text-xs font-bold text-[#2A7C13] dark:text-[#76C457]">
                 ${item.url}
               </div>
             </div>
@@ -928,14 +770,14 @@ const t = useTranslations(lang);
               <button
                 type="button"
                 data-history-idx="${idx}"
-                class="history-load-item-btn rounded-xl border-2 border-[#2A7C13] bg-[#FBE6C2] dark:bg-[#243B1F] px-3.5 py-2 text-sm font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] hover:bg-[#2A7C13] hover:text-[#FFFFFF] transition-colors"
+                class="history-load-item-btn rounded-lg border border-[#2A7C13] bg-[#FBE6C2] dark:bg-[#243B1F] px-3 py-1.5 text-xs font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] hover:bg-[#2A7C13] hover:text-[#FFFFFF] transition-colors"
               >
                 ${loadLabel}
               </button>
               <button
                 type="button"
                 data-history-url="${item.url}"
-                class="history-copy-item-btn rounded-xl bg-[#2A7C13] px-3.5 py-2 text-sm font-extrabold text-[#FFFFFF] hover:shadow-emerald-glow transition-all"
+                class="history-copy-item-btn rounded-lg bg-[#2A7C13] px-3 py-1.5 text-xs font-extrabold text-[#FFFFFF] hover:shadow-emerald-glow transition-all"
               >
                 ${copyLabel}
               </button>
@@ -951,13 +793,12 @@ const t = useTranslations(lang);
           const target = items[idx];
           if (target && phoneInput && messageInput) {
             selectedDial = target.dial;
-            selectedFlag = target.flag;
+            selectedIso = target.iso || 'US';
             if (countryDisplay) {
-              countryDisplay.innerHTML = `<span class="text-2xl leading-none">${selectedFlag}</span><span>+${selectedDial}</span>`;
+              countryDisplay.innerHTML = `<span class="inline-flex items-center justify-center rounded-md bg-[#2A7C13] px-1.5 py-0.5 text-xs font-extrabold text-[#FFFFFF]">${selectedIso}</span><span>+${selectedDial}</span>`;
             }
             phoneInput.value = target.phone;
             messageInput.value = target.message;
-            switchMode('create');
             updateEngine(true);
           }
         });
@@ -985,14 +826,13 @@ const t = useTranslations(lang);
       renderHistoryList();
     });
 
-    // Copy WhatsApp Link Button Action
+    // Copy Link Button
     copyBtn?.addEventListener('click', async () => {
       const url = urlReadout?.textContent?.trim() || '';
       if (!url) return;
       try {
         await navigator.clipboard.writeText(url);
       } catch {
-        // Fallback copy
         const temp = document.createElement('textarea');
         temp.value = url;
         document.body.appendChild(temp);
@@ -1021,12 +861,11 @@ const t = useTranslations(lang);
       }
     });
 
-    // Save to history when testing link in WhatsApp
     testWaBtn?.addEventListener('click', () => {
       saveCurrentLinkToHistory();
     });
 
-    // Download QR Code as High-Res PNG
+    // Download QR Code (PNG)
     downloadPngBtn?.addEventListener('click', async () => {
       const url = urlReadout?.textContent?.trim() || 'https://wa.me/12345678900';
       const exportCanvas = document.createElement('canvas');
@@ -1047,7 +886,7 @@ const t = useTranslations(lang);
       saveCurrentLinkToHistory();
     });
 
-    // Download QR Code as Scalable Vector SVG
+    // Download QR Code (SVG)
     downloadSvgBtn?.addEventListener('click', () => {
       if (!latestSvgString) return;
       const blob = new Blob([latestSvgString], { type: 'image/svg+xml;charset=utf-8' });
@@ -1060,8 +899,6 @@ const t = useTranslations(lang);
       saveCurrentLinkToHistory();
     });
 
-    // Initial render
-    updateEngine(false);
     renderHistoryList();
   }
 

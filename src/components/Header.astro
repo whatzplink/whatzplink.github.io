@@ -70,9 +70,9 @@ const currentLangMeta = languages[lang];
             <line x1="2" y1="12" x2="22" y2="12" />
             <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
           </svg>
-          <span class="hidden lg:inline-flex items-center gap-1.5 text-sm font-bold whitespace-nowrap">
-            <span>{currentLangMeta.flag}</span>
-            <span>{currentLangMeta.code}</span>
+          <span class="hidden lg:inline-flex items-center gap-1.5 text-sm font-extrabold whitespace-nowrap">
+            <span class="rounded bg-[#2A7C13] px-1.5 py-0.5 text-xs text-[#FFFFFF]">{currentLangMeta.code}</span>
+            <span>{currentLangMeta.name}</span>
           </span>
           <svg
             class="hidden lg:block h-4 w-4 shrink-0 opacity-75"
@@ -109,7 +109,7 @@ const currentLangMeta = languages[lang];
                   }`}
                 >
                   <span class="flex items-center gap-2.5">
-                    <span class="text-base">{meta.flag}</span>
+                    <span class={`inline-flex w-7 items-center justify-center rounded px-1 py-0.5 text-xs font-extrabold ${isCurrent ? 'bg-[#FFF8CF] text-[#1A2E15]' : 'bg-[#FBE6C2] dark:bg-[#243B1F] text-[#2A7C13] dark:text-[#76C457]'}`}>{meta.code}</span>
                     <span>{meta.name}</span>
                   </span>
                   <span class="text-xs uppercase opacity-80">{meta.code}</span>
@@ -340,7 +340,7 @@ const currentLangMeta = languages[lang];
                       : 'border-[#76C457] bg-[#FFFFFF] dark:bg-[#1B2E17] text-[#1A2E15] dark:text-[#FFF8CF] hover:bg-[#FBE6C2]'
                   }`}
                 >
-                  <span>{meta.flag}</span>
+                  <span class={`inline-flex items-center justify-center rounded px-1.5 py-0.5 text-xs font-extrabold ${isCurrent ? 'bg-[#FFF8CF] text-[#1A2E15]' : 'bg-[#FBE6C2] dark:bg-[#243B1F] text-[#2A7C13] dark:text-[#76C457]'}`}>{meta.code}</span>
                   <span class="truncate">{meta.name}</span>
                 </a>
               );
