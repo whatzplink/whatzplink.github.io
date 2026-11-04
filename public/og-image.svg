@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#FFF8CF"/>
+  <rect x="40" y="40" width="1120" height="550" rx="36" fill="#FBE6C2" stroke="#2A7C13" stroke-width="6"/>
+  <rect x="90" y="100" width="110" height="110" rx="28" fill="#2A7C13"/>
+  <path d="M145 125C128.431 125 115 137.76 115 153.5C115 159.689 117.084 165.422 120.628 170.099L116.8 183.8L131.16 180.086C135.352 182.27 140.04 183.5 145 183.5C161.569 183.5 175 170.74 175 154.25C175 137.76 161.569 125 145 125Z" fill="#FFF8CF" stroke="#76C457" stroke-width="4"/>
+  <text x="225" y="172" fill="#1A2E15" font-family="Inter, system-ui, sans-serif" font-size="64" font-weight="800">WhatzpLink</text>
+  <text x="90" y="285" fill="#1A2E15" font-family="Inter, system-ui, sans-serif" font-size="54" font-weight="800">Free WhatsApp Link Generator</text>
+  <text x="90" y="355" fill="#2A7C13" font-family="Inter, system-ui, sans-serif" font-size="44" font-weight="700">Create Instant wa.me Chat Links &amp; High-Res QR Codes</text>
+  <rect x="90" y="420" width="680" height="84" rx="20" fill="#2A7C13"/>
+  <text x="130" y="473" fill="#FFFFFF" font-family="monospace" font-size="34" font-weight="700">https://wa.me/12345678900?text=Hi!</text>
+  <rect x="860" y="160" width="230" height="230" rx="24" fill="#FFFFFF" stroke="#2A7C13" stroke-width="8"/>
+  <rect x="890" y="190" width="50" height="50" fill="#1A2E15"/>
+  <rect x="1010" y="190" width="50" height="50" fill="#1A2E15"/>
+  <rect x="890" y="310" width="50" height="50" fill="#1A2E15"/>
+  <rect x="955" y="255" width="40" height="40" fill="#2A7C13"/>
+  <rect x="1010" y="310" width="50" height="50" fill="#76C457"/>
+</svg>

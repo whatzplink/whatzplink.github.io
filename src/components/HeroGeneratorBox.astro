@@ -1,0 +1,1069 @@
+---
+import { type Lang, useTranslations } from '../i18n/ui';
+import { COUNTRIES } from '../data/countries';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section
+  aria-labelledby="hero-primary-h1"
+  class="min-h-[calc(100dvh-68px)] flex flex-col justify-center px-3 py-4 sm:px-6 md:py-6 mx-auto max-w-6xl"
+>
+  <!-- Primary H1 Heading (Strictly above the fold with oversized typography) -->
+  <div class="text-center mb-4 md:mb-5">
+    <h1
+      id="hero-primary-h1"
+      style="font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.12;"
+      class="font-extrabold tracking-tight text-[#1A2E15] dark:text-[#FFF8CF] flex flex-wrap items-center justify-center gap-3"
+    >
+      <!-- Oversized 56px SVG Icon -->
+      <span
+        class="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#2A7C13] text-[#FFFFFF] shadow-md"
+        aria-hidden="true"
+      >
+        <svg class="h-9 w-9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+          <path d="M8 12h8" />
+          <path d="M12 8v8" />
+        </svg>
+      </span>
+      <span>{t.hero.h1}</span>
+    </h1>
+    <p class="mt-2 text-[1.15rem] md:text-xl font-medium text-[#3B5234] dark:text-[#FBE6C2] max-w-3xl mx-auto">
+      {t.hero.subtitle}
+    </p>
+  </div>
+
+  <!-- Interactive Generator Box Div -->
+  <div
+    id="generator-workspace-box"
+    class="w-full rounded-3xl border-2 border-[#76C457] dark:border-[#2A7C13] bg-[#FFFFFF] dark:bg-[#1B2E17] p-4 sm:p-6 md:p-7 shadow-workspace transition-all duration-300"
+  >
+    <!-- Mode Selector Pills -->
+    <div
+      role="tablist"
+      aria-label="Generator Modes"
+      class="flex flex-wrap items-center justify-center sm:justify-start gap-2 sm:gap-3 pb-4 mb-5 border-b-2 border-[#FBE6C2] dark:border-[#243B1F]"
+    >
+      <button
+        type="button"
+        role="tab"
+        id="tab-btn-create"
+        aria-selected="true"
+        aria-controls="panel-create"
+        data-mode="create"
+        class="mode-pill-btn flex items-center gap-2 rounded-2xl px-4 py-2.5 sm:px-5 sm:py-3 text-base sm:text-[1.05rem] font-extrabold transition-all duration-200 bg-[#2A7C13] text-[#FFFFFF] shadow-sm"
+      >
+        <svg class="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+        </svg>
+        <span>{t.hero.modeCreate}</span>
+      </button>
+
+      <button
+        type="button"
+        role="tab"
+        id="tab-btn-templates"
+        aria-selected="false"
+        aria-controls="panel-templates"
+        data-mode="templates"
+        class="mode-pill-btn flex items-center gap-2 rounded-2xl px-4 py-2.5 sm:px-5 sm:py-3 text-base sm:text-[1.05rem] font-extrabold transition-all duration-200 bg-[#FBE6C2] dark:bg-[#243B1F] text-[#1A2E15] dark:text-[#FFF8CF] hover:border-[#2A7C13]"
+      >
+        <svg class="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="16" y1="13" x2="8" y2="13" />
+          <line x1="16" y1="17" x2="8" y2="17" />
+        </svg>
+        <span>{t.hero.modeTemplates}</span>
+      </button>
+
+      <button
+        type="button"
+        role="tab"
+        id="tab-btn-history"
+        aria-selected="false"
+        aria-controls="panel-history"
+        data-mode="history"
+        class="mode-pill-btn flex items-center gap-2 rounded-2xl px-4 py-2.5 sm:px-5 sm:py-3 text-base sm:text-[1.05rem] font-extrabold transition-all duration-200 bg-[#FBE6C2] dark:bg-[#243B1F] text-[#1A2E15] dark:text-[#FFF8CF] hover:border-[#2A7C13]"
+      >
+        <svg class="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" />
+          <polyline points="12 6 12 12 16 14" />
+        </svg>
+        <span>{t.hero.modeHistory}</span>
+        <span
+          id="history-count-badge"
+          class="ml-1 inline-flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[#2A7C13] px-1.5 text-xs font-extrabold text-[#FFFFFF]"
+        >
+          0
+        </span>
+      </button>
+    </div>
+
+    <!-- TAB PANEL 1: Create wa.me Link & QR (Default Active) -->
+    <div id="panel-create" role="tabpanel" aria-labelledby="tab-btn-create" class="space-y-5">
+      <!-- Top Grid: Step 1 (Phone Input) + Step 2 (Custom Message & Chips) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <!-- Step 1: Country Code Searchable Selector + Phone Number Input (5 cols) -->
+        <div class="lg:col-span-5 flex flex-col justify-between space-y-3">
+          <div>
+            <label
+              for="wa-phone-input"
+              class="block text-[1.15rem] font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] mb-2"
+            >
+              {t.generator.step1Label}
+            </label>
+
+            <div class="flex flex-col sm:flex-row gap-2.5">
+              <!-- Searchable Country Code Selector Wrapper -->
+              <div class="relative sm:w-44 shrink-0" id="country-selector-wrapper">
+                <button
+                  type="button"
+                  id="country-selector-btn"
+                  aria-label={t.generator.step1Label}
+                  aria-haspopup="listbox"
+                  aria-expanded="false"
+                  class="flex h-14 w-full items-center justify-between gap-2 rounded-2xl border-2 border-[#76C457] focus:border-[#2A7C13] bg-[#FFF8CF] dark:bg-[#152412] px-3.5 text-left text-[1.15rem] font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] transition-all focus:outline-none focus:ring-2 focus:ring-[#2A7C13]"
+                >
+                  <span id="selected-country-display" class="flex items-center gap-2 truncate">
+                    <span class="text-2xl leading-none">🇺🇸</span>
+                    <span>+1</span>
+                  </span>
+                  <svg class="h-5 w-5 shrink-0 text-[#2A7C13] dark:text-[#76C457]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </button>
+
+                <!-- Searchable Country Dropdown List -->
+                <div
+                  id="country-dropdown-panel"
+                  class="hidden absolute left-0 mt-2 w-72 sm:w-80 rounded-2xl border-2 border-[#2A7C13] bg-[#FFFFFF] dark:bg-[#1B2E17] p-2 shadow-2xl z-40"
+                >
+                  <input
+                    type="text"
+                    id="country-search-input"
+                    aria-label={t.generator.countrySearchPlaceholder}
+                    placeholder={t.generator.countrySearchPlaceholder}
+                    autocomplete="off"
+                    class="w-full rounded-xl border-2 border-[#76C457] focus:border-[#2A7C13] bg-[#FFF8CF] dark:bg-[#152412] px-3 py-2 text-base font-semibold text-[#1A2E15] dark:text-[#FFF8CF] placeholder-[#3B5234]/70 dark:placeholder-[#FBE6C2]/60 focus:outline-none mb-2"
+                  />
+                  <ul
+                    id="country-list"
+                    role="listbox"
+                    class="max-h-60 overflow-y-auto divide-y divide-[#FBE6C2]/50 dark:divide-[#243B1F]"
+                  >
+                    {
+                      COUNTRIES.map((c) => (
+                        <li
+                          role="option"
+                          data-dial={c.dial}
+                          data-flag={c.flag}
+                          data-name={c.name.toLowerCase()}
+                          data-code={c.code.toLowerCase()}
+                          class="country-option-item flex cursor-pointer items-center justify-between rounded-xl px-3 py-2.5 text-base font-bold text-[#1A2E15] dark:text-[#FFF8CF] hover:bg-[#FBE6C2] dark:hover:bg-[#243B1F] transition-colors"
+                        >
+                          <span class="flex items-center gap-2.5 truncate">
+                            <span class="text-xl">{c.flag}</span>
+                            <span class="truncate">{c.name}</span>
+                          </span>
+                          <span class="ml-2 rounded-lg bg-[#FFF8CF] dark:bg-[#152412] px-2 py-0.5 text-sm font-extrabold text-[#2A7C13] dark:text-[#76C457]">
+                            +{c.dial}
+                          </span>
+                        </li>
+                      ))
+                    }
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Big Phone Number Input Field -->
+              <div class="relative flex-1">
+                <input
+                  type="tel"
+                  id="wa-phone-input"
+                  inputmode="tel"
+                  placeholder={t.generator.phonePlaceholder}
+                  value="2345678900"
+                  aria-describedby="phone-validation-badge"
+                  class="h-14 w-full rounded-2xl border-2 border-[#76C457] focus:border-[#2A7C13] bg-[#FFF8CF] dark:bg-[#152412] px-4 text-xl font-extrabold tracking-wide text-[#1A2E15] dark:text-[#FFF8CF] placeholder-[#3B5234]/50 dark:placeholder-[#FBE6C2]/40 transition-all focus:outline-none focus:ring-2 focus:ring-[#2A7C13]"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Phone Validation & Sanitization Badge -->
+          <div
+            id="phone-validation-badge"
+            role="status"
+            aria-live="polite"
+            data-ready={t.generator.validationReady}
+            data-cleaned={t.generator.validationCleaned}
+            data-empty={t.generator.validationEmpty}
+            data-invalid={t.generator.validationInvalid}
+            class="flex items-center gap-2.5 rounded-2xl bg-[#FBE6C2] dark:bg-[#243B1F] px-3.5 py-2.5 text-sm sm:text-base font-bold text-[#1A2E15] dark:text-[#FFF8CF] border border-[#76C457]/60"
+          >
+            <span
+              id="validation-icon-dot"
+              class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#2A7C13] text-[#FFFFFF]"
+            >
+              ✓
+            </span>
+            <span id="validation-status-text">{t.generator.validationReady}</span>
+          </div>
+        </div>
+
+        <!-- Step 2: Custom Pre-filled Message + 1-Click Pill Chips (7 cols) -->
+        <div class="lg:col-span-7 flex flex-col justify-between space-y-2.5">
+          <div>
+            <label
+              for="wa-message-input"
+              class="block text-[1.15rem] font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] mb-2"
+            >
+              {t.generator.step2Label}
+            </label>
+            <textarea
+              id="wa-message-input"
+              rows="2"
+              placeholder={t.generator.messagePlaceholder}
+              class="w-full rounded-2xl border-2 border-[#76C457] focus:border-[#2A7C13] bg-[#FFF8CF] dark:bg-[#152412] p-3.5 text-[1.15rem] font-semibold text-[#1A2E15] dark:text-[#FFF8CF] placeholder-[#3B5234]/60 dark:placeholder-[#FBE6C2]/50 transition-all focus:outline-none focus:ring-2 focus:ring-[#2A7C13] resize-none"
+            >{t.generator.chipOrderText}</textarea>
+          </div>
+
+          <!-- 1-Click Pill Chips -->
+          <div class="flex flex-wrap items-center gap-2 pt-1">
+            <span class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#3B5234] dark:text-[#FBE6C2] mr-1">
+              {t.generator.quickChipsLabel}
+            </span>
+            <button
+              type="button"
+              data-chip-text={t.generator.chipOrderText}
+              class="quick-chip-btn rounded-full border-2 border-[#76C457] bg-[#FBE6C2] dark:bg-[#243B1F] px-3.5 py-1.5 text-sm font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] transition-all hover:bg-[#2A7C13] hover:text-[#FFFFFF] hover:border-[#2A7C13] active:scale-95"
+            >
+              🛒 {t.generator.chipOrder}
+            </button>
+            <button
+              type="button"
+              data-chip-text={t.generator.chipInfoText}
+              class="quick-chip-btn rounded-full border-2 border-[#76C457] bg-[#FBE6C2] dark:bg-[#243B1F] px-3.5 py-1.5 text-sm font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] transition-all hover:bg-[#2A7C13] hover:text-[#FFFFFF] hover:border-[#2A7C13] active:scale-95"
+            >
+              💬 {t.generator.chipInfo}
+            </button>
+            <button
+              type="button"
+              data-chip-text={t.generator.chipBookText}
+              class="quick-chip-btn rounded-full border-2 border-[#76C457] bg-[#FBE6C2] dark:bg-[#243B1F] px-3.5 py-1.5 text-sm font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] transition-all hover:bg-[#2A7C13] hover:text-[#FFFFFF] hover:border-[#2A7C13] active:scale-95"
+            >
+              📅 {t.generator.chipBook}
+            </button>
+            <button
+              type="button"
+              data-chip-text={t.generator.chipQuoteText}
+              class="quick-chip-btn rounded-full border-2 border-[#76C457] bg-[#FBE6C2] dark:bg-[#243B1F] px-3.5 py-1.5 text-sm font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] transition-all hover:bg-[#2A7C13] hover:text-[#FFFFFF] hover:border-[#2A7C13] active:scale-95"
+            >
+              💼 {t.generator.chipQuote}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Two-Column Split — Left: Live WhatsApp Chat Bubble Preview (#FBE6C2 card) | Right: Instant High-Res HTML5 <canvas> QR Code bordered in #2A7C13 -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+        <!-- Left Column: Realistic Animated Live WhatsApp Chat Bubble Preview on #FBE6C2 Card (7 cols) -->
+        <div
+          class="lg:col-span-7 flex flex-col justify-between rounded-2xl border-2 border-[#76C457] dark:border-[#2A7C13] bg-[#FBE6C2] dark:bg-[#152412] p-4 sm:p-5 shadow-inner"
+        >
+          <!-- Chat Header Bar -->
+          <div class="flex items-center justify-between border-b border-[#76C457]/50 pb-3 mb-3">
+            <div class="flex items-center gap-3">
+              <!-- Oversized 56px Avatar Icon -->
+              <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#2A7C13] text-[#FFFFFF] shadow-sm">
+                <svg class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+              </div>
+              <div>
+                <div class="text-sm font-bold uppercase tracking-wider text-[#2A7C13] dark:text-[#76C457]">
+                  {t.generator.previewTitle}
+                </div>
+                <div class="flex items-center gap-2 text-lg font-extrabold text-[#1A2E15] dark:text-[#FFF8CF]">
+                  <span>{t.generator.previewRecipientLabel}</span>
+                  <span id="preview-phone-number" class="font-mono text-[#2A7C13] dark:text-[#76C457]">+1 2345678900</span>
+                </div>
+                <div class="flex items-center gap-1.5 text-xs font-bold text-[#3B5234] dark:text-[#FBE6C2]">
+                  <span class="inline-block h-2.5 w-2.5 rounded-full bg-[#2A7C13] dark:bg-[#76C457] animate-ping"></span>
+                  <span>{t.generator.previewOnline}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Animated WhatsApp Outgoing Message Bubble -->
+          <div class="my-auto py-2 flex flex-col items-end">
+            <div
+              id="chat-bubble-container"
+              data-placeholder={t.generator.previewPlaceholderBubble}
+              class="animate-bubble-pop relative max-w-[92%] rounded-2xl rounded-tr-sm border-2 border-[#76C457] bg-[#FFF8CF] dark:bg-[#1B2E17] px-4 py-3.5 text-[1.15rem] font-semibold text-[#1A2E15] dark:text-[#FFF8CF] shadow-md"
+            >
+              <p id="preview-bubble-text" class="whitespace-pre-wrap break-words leading-relaxed">
+                {t.generator.chipOrderText}
+              </p>
+              <div class="mt-1.5 flex items-center justify-end gap-1 text-xs font-bold text-[#2A7C13] dark:text-[#76C457]">
+                <span id="preview-timestamp">12:00</span>
+                <!-- Double Checkmark Icon -->
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12" />
+                  <polyline points="22 10 13 19 11 17" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Instant High-Res HTML5 <canvas> QR Code bordered in #2A7C13 (5 cols) -->
+        <div
+          class="lg:col-span-5 flex flex-col items-center justify-between gap-4 rounded-2xl border-2 border-[#2A7C13] bg-[#FFF8CF] dark:bg-[#152412] p-4 sm:p-5 text-center"
+        >
+          <div class="space-y-1">
+            <h2 class="text-lg sm:text-xl font-extrabold text-[#1A2E15] dark:text-[#FFF8CF]">
+              {t.generator.qrTitle}
+            </h2>
+            <p class="text-xs sm:text-sm font-semibold text-[#3B5234] dark:text-[#FBE6C2] max-w-xs mx-auto">
+              {t.generator.qrSubtitle}
+            </p>
+          </div>
+
+          <!-- QR Code HTML5 Canvas Container bordered in #2A7C13 -->
+          <div class="relative flex items-center justify-center rounded-2xl border-4 border-[#2A7C13] bg-[#FFFFFF] p-3 shadow-md">
+            <canvas
+              id="wa-qr-canvas"
+              width="200"
+              height="200"
+              aria-label="WhatsApp Link QR Code"
+              class="h-40 w-40 sm:h-44 sm:w-44 rounded-lg"
+            ></canvas>
+          </div>
+
+          <!-- Secondary SVG Download Link -->
+          <button
+            type="button"
+            id="download-qr-svg-btn"
+            class="inline-flex min-h-[42px] items-center justify-center gap-2 rounded-xl border-2 border-[#2A7C13] bg-[#FBE6C2] dark:bg-[#243B1F] px-5 py-2 text-sm font-extrabold whitespace-nowrap text-[#1A2E15] dark:text-[#FFF8CF] transition-all hover:bg-[#2A7C13] hover:text-[#FFFFFF]"
+          >
+            <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            <span>{t.generator.downloadQrSvgBtn}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 4: Instant Actions — Prominent #FFF8CF URL Readout Box + Oversized #2A7C13 Action Buttons -->
+      <div class="rounded-2xl border-2 border-[#76C457] dark:border-[#2A7C13] bg-[#FFF8CF] dark:bg-[#152412] p-4 sm:p-5 space-y-4">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
+          <span class="text-sm sm:text-base font-extrabold uppercase tracking-wider text-[#2A7C13] dark:text-[#76C457] shrink-0">
+            {t.generator.readoutLabel}
+          </span>
+          <code
+            id="generated-url-readout"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+            class="block w-full lg:flex-1 truncate rounded-xl border-2 border-[#76C457] bg-[#FFFFFF] dark:bg-[#1B2E17] px-4 py-3 font-mono text-sm sm:text-base md:text-lg font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] select-all"
+          >
+            https://wa.me/12345678900?text=Hi!%20I%20want%20to%20order%20your%20product.%20Could%20you%20share%20availability%20and%20details%3F
+          </code>
+        </div>
+
+        <!-- Accessible Copied Notification Banner (aria-live="polite") -->
+        <div
+          id="copy-notification-banner"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          class="hidden rounded-xl bg-[#2A7C13] px-4 py-2 text-center text-sm font-extrabold text-[#FFFFFF] shadow-sm transition-all"
+        >
+          {t.generator.copiedLinkBtn}
+        </div>
+
+        <!-- Massive Rounded Action Buttons (Responsive across Mobile, Tablet, and Desktop) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+          <!-- 1. Copy WhatsApp Link Button -->
+          <button
+            type="button"
+            id="copy-wa-link-btn"
+            aria-label={t.generator.copyLinkBtn}
+            data-copy-text={t.generator.copyLinkBtn}
+            data-copied-text={t.generator.copiedLinkBtn}
+            class="md:col-span-2 lg:col-span-1 flex min-h-[56px] h-auto items-center justify-center gap-2.5 rounded-2xl bg-[#2A7C13] px-5 py-3 text-base sm:text-[1.1rem] font-extrabold leading-snug text-[#FFFFFF] shadow-md transition-all duration-200 hover:shadow-emerald-glow hover:ring-2 hover:ring-[#76C457] active:scale-98"
+          >
+            <svg id="copy-btn-icon" class="h-6 w-6 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            </svg>
+            <span id="copy-btn-label" aria-live="polite">{t.generator.copyLinkBtn}</span>
+          </button>
+
+          <!-- 2. Download QR Code (PNG) Button -->
+          <button
+            type="button"
+            id="download-qr-png-btn"
+            aria-label={t.generator.downloadQrPngBtn}
+            class="flex min-h-[56px] h-auto items-center justify-center gap-2.5 rounded-2xl border-2 border-[#2A7C13] bg-[#76C457] dark:bg-[#2A7C13] px-5 py-3 text-base sm:text-[1.1rem] font-extrabold leading-snug text-[#1A2E15] dark:text-[#FFFFFF] shadow-md transition-all duration-200 hover:bg-[#2A7C13] hover:text-[#FFFFFF] hover:shadow-emerald-glow active:scale-98"
+          >
+            <svg class="h-6 w-6 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            <span>{t.generator.downloadQrPngBtn}</span>
+          </button>
+
+          <!-- 3. Test Link in WhatsApp Button -->
+          <a
+            id="test-wa-link-btn"
+            href="https://wa.me/12345678900"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={t.generator.testWhatsappBtn}
+            class="flex min-h-[56px] h-auto items-center justify-center gap-2.5 rounded-2xl border-2 border-[#2A7C13] bg-[#FBE6C2] dark:bg-[#243B1F] px-5 py-3 text-base sm:text-[1.1rem] font-extrabold leading-snug text-[#1A2E15] dark:text-[#FFF8CF] shadow-sm transition-all duration-200 hover:bg-[#2A7C13] hover:text-[#FFFFFF] hover:shadow-emerald-glow active:scale-98"
+          >
+            <svg class="h-6 w-6 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+            <span>{t.generator.testWhatsappBtn}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB PANEL 2: Quick Business Templates -->
+    <div id="panel-templates" role="tabpanel" aria-labelledby="tab-btn-templates" class="hidden space-y-5">
+      <div class="text-center sm:text-left">
+        <h2 class="text-2xl font-extrabold text-[#1A2E15] dark:text-[#FFF8CF]">
+          {t.generator.templatesHeading}
+        </h2>
+        <p class="text-[1.1rem] font-medium text-[#3B5234] dark:text-[#FBE6C2]">
+          {t.generator.templatesSubheading}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Template 1: Order Inquiry -->
+        <div class="flex flex-col justify-between rounded-2xl border-2 border-[#76C457] bg-[#FFF8CF] dark:bg-[#152412] p-5 space-y-4">
+          <div class="space-y-2">
+            <div class="inline-flex items-center gap-2 rounded-xl bg-[#FBE6C2] dark:bg-[#243B1F] px-3 py-1 text-sm font-extrabold text-[#2A7C13] dark:text-[#76C457]">
+              🛒 {t.generator.templateOrderTitle}
+            </div>
+            <p class="text-sm font-semibold text-[#3B5234] dark:text-[#FBE6C2]">
+              {t.generator.templateOrderDesc}
+            </p>
+            <blockquote class="rounded-xl border border-[#76C457] bg-[#FFFFFF] dark:bg-[#1B2E17] p-3 text-base font-bold text-[#1A2E15] dark:text-[#FFF8CF]">
+              "{t.generator.chipOrderText}"
+            </blockquote>
+          </div>
+          <button
+            type="button"
+            data-template-msg={t.generator.chipOrderText}
+            class="apply-template-btn w-full rounded-xl bg-[#2A7C13] py-3 text-base font-extrabold text-[#FFFFFF] transition-all hover:shadow-emerald-glow"
+          >
+            {t.generator.useTemplateBtn} →
+          </button>
+        </div>
+
+        <!-- Template 2: Customer Support -->
+        <div class="flex flex-col justify-between rounded-2xl border-2 border-[#76C457] bg-[#FFF8CF] dark:bg-[#152412] p-5 space-y-4">
+          <div class="space-y-2">
+            <div class="inline-flex items-center gap-2 rounded-xl bg-[#FBE6C2] dark:bg-[#243B1F] px-3 py-1 text-sm font-extrabold text-[#2A7C13] dark:text-[#76C457]">
+              🎧 {t.generator.templateSupportTitle}
+            </div>
+            <p class="text-sm font-semibold text-[#3B5234] dark:text-[#FBE6C2]">
+              {t.generator.templateSupportDesc}
+            </p>
+            <blockquote class="rounded-xl border border-[#76C457] bg-[#FFFFFF] dark:bg-[#1B2E17] p-3 text-base font-bold text-[#1A2E15] dark:text-[#FFF8CF]">
+              "{t.generator.chipInfoText}"
+            </blockquote>
+          </div>
+          <button
+            type="button"
+            data-template-msg={t.generator.chipInfoText}
+            class="apply-template-btn w-full rounded-xl bg-[#2A7C13] py-3 text-base font-extrabold text-[#FFFFFF] transition-all hover:shadow-emerald-glow"
+          >
+            {t.generator.useTemplateBtn} →
+          </button>
+        </div>
+
+        <!-- Template 3: Appointment Booking -->
+        <div class="flex flex-col justify-between rounded-2xl border-2 border-[#76C457] bg-[#FFF8CF] dark:bg-[#152412] p-5 space-y-4">
+          <div class="space-y-2">
+            <div class="inline-flex items-center gap-2 rounded-xl bg-[#FBE6C2] dark:bg-[#243B1F] px-3 py-1 text-sm font-extrabold text-[#2A7C13] dark:text-[#76C457]">
+              📅 {t.generator.templateBookingTitle}
+            </div>
+            <p class="text-sm font-semibold text-[#3B5234] dark:text-[#FBE6C2]">
+              {t.generator.templateBookingDesc}
+            </p>
+            <blockquote class="rounded-xl border border-[#76C457] bg-[#FFFFFF] dark:bg-[#1B2E17] p-3 text-base font-bold text-[#1A2E15] dark:text-[#FFF8CF]">
+              "{t.generator.chipBookText}"
+            </blockquote>
+          </div>
+          <button
+            type="button"
+            data-template-msg={t.generator.chipBookText}
+            class="apply-template-btn w-full rounded-xl bg-[#2A7C13] py-3 text-base font-extrabold text-[#FFFFFF] transition-all hover:shadow-emerald-glow"
+          >
+            {t.generator.useTemplateBtn} →
+          </button>
+        </div>
+
+        <!-- Template 4: Price Quote Request -->
+        <div class="flex flex-col justify-between rounded-2xl border-2 border-[#76C457] bg-[#FFF8CF] dark:bg-[#152412] p-5 space-y-4">
+          <div class="space-y-2">
+            <div class="inline-flex items-center gap-2 rounded-xl bg-[#FBE6C2] dark:bg-[#243B1F] px-3 py-1 text-sm font-extrabold text-[#2A7C13] dark:text-[#76C457]">
+              💼 {t.generator.templateQuoteTitle}
+            </div>
+            <p class="text-sm font-semibold text-[#3B5234] dark:text-[#FBE6C2]">
+              {t.generator.templateQuoteDesc}
+            </p>
+            <blockquote class="rounded-xl border border-[#76C457] bg-[#FFFFFF] dark:bg-[#1B2E17] p-3 text-base font-bold text-[#1A2E15] dark:text-[#FFF8CF]">
+              "{t.generator.chipQuoteText}"
+            </blockquote>
+          </div>
+          <button
+            type="button"
+            data-template-msg={t.generator.chipQuoteText}
+            class="apply-template-btn w-full rounded-xl bg-[#2A7C13] py-3 text-base font-extrabold text-[#FFFFFF] transition-all hover:shadow-emerald-glow"
+          >
+            {t.generator.useTemplateBtn} →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB PANEL 3: Saved Links History (Last 5 Links in LocalStorage) -->
+    <div id="panel-history" role="tabpanel" aria-labelledby="tab-btn-history" class="hidden space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h2 class="text-2xl font-extrabold text-[#1A2E15] dark:text-[#FFF8CF]">
+            {t.generator.historyHeading}
+          </h2>
+          <p class="text-base font-medium text-[#3B5234] dark:text-[#FBE6C2]">
+            {t.generator.historySubheading}
+          </p>
+        </div>
+        <button
+          type="button"
+          id="clear-history-btn"
+          class="self-start sm:self-auto rounded-xl border-2 border-[#2A7C13] bg-[#FBE6C2] dark:bg-[#243B1F] px-4 py-2 text-sm font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] hover:bg-[#2A7C13] hover:text-[#FFFFFF] transition-colors"
+        >
+          {t.generator.historyClearBtn}
+        </button>
+      </div>
+
+      <div
+        id="history-list-container"
+        data-empty-text={t.generator.historyEmpty}
+        data-load-label={t.generator.historyLoadBtn}
+        data-copy-label={t.generator.historyCopyBtn}
+        class="space-y-3"
+      >
+        <div class="rounded-2xl border-2 border-dashed border-[#76C457] bg-[#FFF8CF] dark:bg-[#152412] p-8 text-center text-lg font-bold text-[#3B5234] dark:text-[#FBE6C2]">
+          {t.generator.historyEmpty}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import QRCode from 'qrcode';
+
+  interface SavedLinkItem {
+    dial: string;
+    flag: string;
+    phone: string;
+    message: string;
+    url: string;
+    timestamp: string;
+  }
+
+  const STORAGE_KEY = 'whatzplink_history_v1';
+
+  function sanitizePhoneNumber(raw: string): { cleaned: string; hadInvalidChars: boolean } {
+    // Strip spaces, dashes, brackets, plus signs, dots, and leading zeros
+    const withoutFormatting = raw.replace(/[\s\-\(\)\+\.]/g, '');
+    const digitsOnly = withoutFormatting.replace(/\D/g, '');
+    const strippedLeadingZeros = digitsOnly.replace(/^0+/, '');
+    const hadInvalidChars = raw !== strippedLeadingZeros && raw.length > 0;
+    return { cleaned: strippedLeadingZeros, hadInvalidChars };
+  }
+
+  function buildWaMeUrl(dial: string, cleanPhone: string, message: string): string {
+    const cleanDial = dial.replace(/\D/g, '');
+    const fullNumber = `${cleanDial}${cleanPhone || '2345678900'}`;
+    const trimmedMessage = message.trim();
+    if (!trimmedMessage) {
+      return `https://wa.me/${fullNumber}`;
+    }
+    return `https://wa.me/${fullNumber}?text=${encodeURIComponent(trimmedMessage)}`;
+  }
+
+  function initWhatsAppGenerator() {
+    let selectedDial = '1';
+    let selectedFlag = '🇺🇸';
+    let latestSvgString = '';
+
+    const countryBtn = document.getElementById('country-selector-btn');
+    const countryDisplay = document.getElementById('selected-country-display');
+    const countryPanel = document.getElementById('country-dropdown-panel');
+    const countrySearch = document.getElementById('country-search-input') as HTMLInputElement | null;
+    const countryWrapper = document.getElementById('country-selector-wrapper');
+    const countryOptions = document.querySelectorAll('.country-option-item');
+
+    const phoneInput = document.getElementById('wa-phone-input') as HTMLInputElement | null;
+    const messageInput = document.getElementById('wa-message-input') as HTMLTextAreaElement | null;
+    const validationBadge = document.getElementById('phone-validation-badge');
+    const validationText = document.getElementById('validation-status-text');
+    const validationDot = document.getElementById('validation-icon-dot');
+
+    const previewPhone = document.getElementById('preview-phone-number');
+    const previewBubbleText = document.getElementById('preview-bubble-text');
+    const chatBubbleContainer = document.getElementById('chat-bubble-container');
+    const previewTimestamp = document.getElementById('preview-timestamp');
+
+    const qrCanvas = document.getElementById('wa-qr-canvas') as HTMLCanvasElement | null;
+    const urlReadout = document.getElementById('generated-url-readout');
+    const copyBtn = document.getElementById('copy-wa-link-btn');
+    const copyBtnLabel = document.getElementById('copy-btn-label');
+    const downloadPngBtn = document.getElementById('download-qr-png-btn');
+    const downloadSvgBtn = document.getElementById('download-qr-svg-btn');
+    const testWaBtn = document.getElementById('test-wa-link-btn') as HTMLAnchorElement | null;
+
+    const modeBtns = document.querySelectorAll('.mode-pill-btn');
+    const panelCreate = document.getElementById('panel-create');
+    const panelTemplates = document.getElementById('panel-templates');
+    const panelHistory = document.getElementById('panel-history');
+    const historyBadge = document.getElementById('history-count-badge');
+    const historyContainer = document.getElementById('history-list-container');
+    const clearHistoryBtn = document.getElementById('clear-history-btn');
+
+    // Update current time in preview bubble
+    if (previewTimestamp) {
+      const now = new Date();
+      previewTimestamp.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    // Mode Switching Function
+    function switchMode(mode: string) {
+      modeBtns.forEach((btn) => {
+        const isTarget = btn.getAttribute('data-mode') === mode;
+        btn.setAttribute('aria-selected', String(isTarget));
+        if (isTarget) {
+          btn.className =
+            'mode-pill-btn flex items-center gap-2 rounded-2xl px-4 py-2.5 sm:px-5 sm:py-3 text-base sm:text-[1.05rem] font-extrabold transition-all duration-200 bg-[#2A7C13] text-[#FFFFFF] shadow-sm';
+        } else {
+          btn.className =
+            'mode-pill-btn flex items-center gap-2 rounded-2xl px-4 py-2.5 sm:px-5 sm:py-3 text-base sm:text-[1.05rem] font-extrabold transition-all duration-200 bg-[#FBE6C2] dark:bg-[#243B1F] text-[#1A2E15] dark:text-[#FFF8CF] hover:border-[#2A7C13]';
+        }
+      });
+
+      panelCreate?.classList.toggle('hidden', mode !== 'create');
+      panelTemplates?.classList.toggle('hidden', mode !== 'templates');
+      panelHistory?.classList.toggle('hidden', mode !== 'history');
+    }
+
+    modeBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const mode = btn.getAttribute('data-mode') || 'create';
+        switchMode(mode);
+      });
+    });
+
+    // Render QR Code onto HTML5 Canvas + Prepare SVG
+    async function renderQrCode(url: string) {
+      if (!qrCanvas) return;
+      try {
+        await QRCode.toCanvas(qrCanvas, url, {
+          width: 200,
+          margin: 1,
+          color: {
+            dark: '#1A2E15',
+            light: '#FFFFFF',
+          },
+          errorCorrectionLevel: 'M',
+        });
+        latestSvgString = await QRCode.toString(url, {
+          type: 'svg',
+          width: 512,
+          margin: 2,
+          color: {
+            dark: '#2A7C13',
+            light: '#FFFFFF',
+          },
+          errorCorrectionLevel: 'M',
+        });
+      } catch (err) {
+        console.error('QR generation error:', err);
+      }
+    }
+
+    // Core Real-Time Update Engine
+    function updateEngine(triggerBubbleAnim = false) {
+      if (!phoneInput || !messageInput) return;
+
+      const rawPhone = phoneInput.value;
+      const { cleaned, hadInvalidChars } = sanitizePhoneNumber(rawPhone);
+
+      // Update Validation Badge
+      if (validationBadge && validationText && validationDot) {
+        if (!rawPhone.trim()) {
+          validationText.textContent = validationBadge.getAttribute('data-empty') || '';
+          validationDot.textContent = '•';
+          validationDot.className = 'flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#76C457] text-[#1A2E15]';
+        } else if (cleaned.length < 6) {
+          validationText.textContent = validationBadge.getAttribute('data-invalid') || '';
+          validationDot.textContent = '!';
+          validationDot.className = 'flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#3B5234] text-[#FFF8CF]';
+        } else if (hadInvalidChars) {
+          validationText.textContent = validationBadge.getAttribute('data-cleaned') || '';
+          validationDot.textContent = '✓';
+          validationDot.className = 'flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#2A7C13] text-[#FFFFFF]';
+        } else {
+          validationText.textContent = validationBadge.getAttribute('data-ready') || '';
+          validationDot.textContent = '✓';
+          validationDot.className = 'flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#2A7C13] text-[#FFFFFF]';
+        }
+      }
+
+      const msg = messageInput.value;
+      const fullUrl = buildWaMeUrl(selectedDial, cleaned, msg);
+
+      // Update Preview Phone & Chat Bubble
+      if (previewPhone) {
+        previewPhone.textContent = `+${selectedDial} ${cleaned || '2345678900'}`;
+      }
+
+      if (previewBubbleText && chatBubbleContainer) {
+        const placeholder = chatBubbleContainer.getAttribute('data-placeholder') || '';
+        previewBubbleText.textContent = msg.trim() ? msg : placeholder;
+        if (triggerBubbleAnim) {
+          chatBubbleContainer.classList.remove('animate-bubble-pop');
+          void chatBubbleContainer.offsetWidth;
+          chatBubbleContainer.classList.add('animate-bubble-pop');
+        }
+      }
+
+      // Update URL Readout & Test Button
+      if (urlReadout) {
+        urlReadout.textContent = fullUrl;
+      }
+      if (testWaBtn) {
+        testWaBtn.href = fullUrl;
+      }
+
+      // Update QR Code
+      renderQrCode(fullUrl);
+    }
+
+    // Country Selector Dropdown Interaction
+    if (countryBtn && countryPanel && countryWrapper) {
+      countryBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isHidden = countryPanel.classList.contains('hidden');
+        countryPanel.classList.toggle('hidden', !isHidden);
+        countryBtn.setAttribute('aria-expanded', String(isHidden));
+        if (isHidden && countrySearch) {
+          setTimeout(() => countrySearch.focus(), 50);
+        }
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!countryWrapper.contains(e.target as Node)) {
+          countryPanel.classList.add('hidden');
+          countryBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    if (countrySearch) {
+      countrySearch.addEventListener('input', () => {
+        const query = countrySearch.value.trim().toLowerCase().replace(/^\+/, '');
+        countryOptions.forEach((item) => {
+          const name = item.getAttribute('data-name') || '';
+          const dial = item.getAttribute('data-dial') || '';
+          const code = item.getAttribute('data-code') || '';
+          const matches = name.includes(query) || dial.includes(query) || code.includes(query);
+          (item as HTMLElement).style.display = matches ? 'flex' : 'none';
+        });
+      });
+    }
+
+    countryOptions.forEach((item) => {
+      item.addEventListener('click', () => {
+        selectedDial = item.getAttribute('data-dial') || '1';
+        selectedFlag = item.getAttribute('data-flag') || '🇺🇸';
+        if (countryDisplay) {
+          countryDisplay.innerHTML = `<span class="text-2xl leading-none">${selectedFlag}</span><span>+${selectedDial}</span>`;
+        }
+        countryPanel?.classList.add('hidden');
+        countryBtn?.setAttribute('aria-expanded', 'false');
+        updateEngine(true);
+      });
+    });
+
+    // Phone & Message Real-Time Input Listeners
+    phoneInput?.addEventListener('input', () => updateEngine(false));
+    messageInput?.addEventListener('input', () => updateEngine(true));
+
+    // 1-Click Quick Chips with Pulse Animation
+    const quickChips = document.querySelectorAll('.quick-chip-btn');
+    quickChips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const chipText = chip.getAttribute('data-chip-text') || '';
+        if (messageInput) {
+          messageInput.value = chipText;
+          messageInput.classList.remove('animate-pulse-emerald');
+          void messageInput.offsetWidth;
+          messageInput.classList.add('animate-pulse-emerald');
+          updateEngine(true);
+        }
+      });
+    });
+
+    // 1-Click Business Templates Tab Buttons
+    const templateBtns = document.querySelectorAll('.apply-template-btn');
+    templateBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const templateMsg = btn.getAttribute('data-template-msg') || '';
+        if (messageInput) {
+          messageInput.value = templateMsg;
+          switchMode('create');
+          messageInput.classList.remove('animate-pulse-emerald');
+          void messageInput.offsetWidth;
+          messageInput.classList.add('animate-pulse-emerald');
+          updateEngine(true);
+        }
+      });
+    });
+
+    // LocalStorage History Management (Last 5 Links)
+    function loadHistory(): SavedLinkItem[] {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed.slice(0, 5) : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveCurrentLinkToHistory() {
+      if (!phoneInput || !messageInput) return;
+      const { cleaned } = sanitizePhoneNumber(phoneInput.value);
+      const finalPhone = cleaned || '2345678900';
+      const msg = messageInput.value.trim();
+      const url = buildWaMeUrl(selectedDial, finalPhone, msg);
+
+      const currentList = loadHistory().filter((item) => item.url !== url);
+      const newItem: SavedLinkItem = {
+        dial: selectedDial,
+        flag: selectedFlag,
+        phone: finalPhone,
+        message: msg,
+        url,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      };
+
+      const updated = [newItem, ...currentList].slice(0, 5);
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      } catch {}
+      renderHistoryList();
+    }
+
+    function renderHistoryList() {
+      const items = loadHistory();
+      if (historyBadge) {
+        historyBadge.textContent = String(items.length);
+      }
+      if (!historyContainer) return;
+
+      const emptyText = historyContainer.getAttribute('data-empty-text') || 'No links saved yet.';
+      const loadLabel = historyContainer.getAttribute('data-load-label') || 'Load';
+      const copyLabel = historyContainer.getAttribute('data-copy-label') || 'Copy';
+
+      if (items.length === 0) {
+        historyContainer.innerHTML = `
+          <div class="rounded-2xl border-2 border-dashed border-[#76C457] bg-[#FFF8CF] dark:bg-[#152412] p-8 text-center text-lg font-bold text-[#3B5234] dark:text-[#FBE6C2]">
+            ${emptyText}
+          </div>
+        `;
+        return;
+      }
+
+      historyContainer.innerHTML = items
+        .map(
+          (item, idx) => `
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border-2 border-[#76C457] bg-[#FFF8CF] dark:bg-[#152412] p-4">
+            <div class="min-w-0 flex-1 space-y-1">
+              <div class="flex items-center gap-2 text-base font-extrabold text-[#1A2E15] dark:text-[#FFF8CF]">
+                <span>${item.flag} +${item.dial} ${item.phone}</span>
+                <span class="text-xs font-semibold text-[#3B5234] dark:text-[#FBE6C2]">• ${item.timestamp}</span>
+              </div>
+              <div class="truncate font-mono text-sm font-bold text-[#2A7C13] dark:text-[#76C457]">
+                ${item.url}
+              </div>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                data-history-idx="${idx}"
+                class="history-load-item-btn rounded-xl border-2 border-[#2A7C13] bg-[#FBE6C2] dark:bg-[#243B1F] px-3.5 py-2 text-sm font-extrabold text-[#1A2E15] dark:text-[#FFF8CF] hover:bg-[#2A7C13] hover:text-[#FFFFFF] transition-colors"
+              >
+                ${loadLabel}
+              </button>
+              <button
+                type="button"
+                data-history-url="${item.url}"
+                class="history-copy-item-btn rounded-xl bg-[#2A7C13] px-3.5 py-2 text-sm font-extrabold text-[#FFFFFF] hover:shadow-emerald-glow transition-all"
+              >
+                ${copyLabel}
+              </button>
+            </div>
+          </div>
+        `
+        )
+        .join('');
+
+      historyContainer.querySelectorAll('.history-load-item-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const idx = Number(btn.getAttribute('data-history-idx') || '0');
+          const target = items[idx];
+          if (target && phoneInput && messageInput) {
+            selectedDial = target.dial;
+            selectedFlag = target.flag;
+            if (countryDisplay) {
+              countryDisplay.innerHTML = `<span class="text-2xl leading-none">${selectedFlag}</span><span>+${selectedDial}</span>`;
+            }
+            phoneInput.value = target.phone;
+            messageInput.value = target.message;
+            switchMode('create');
+            updateEngine(true);
+          }
+        });
+      });
+
+      historyContainer.querySelectorAll('.history-copy-item-btn').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const url = btn.getAttribute('data-history-url') || '';
+          try {
+            await navigator.clipboard.writeText(url);
+            const original = btn.textContent;
+            btn.textContent = '✓';
+            setTimeout(() => {
+              btn.textContent = original;
+            }, 1500);
+          } catch {}
+        });
+      });
+    }
+
+    clearHistoryBtn?.addEventListener('click', () => {
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch {}
+      renderHistoryList();
+    });
+
+    // Copy WhatsApp Link Button Action
+    copyBtn?.addEventListener('click', async () => {
+      const url = urlReadout?.textContent?.trim() || '';
+      if (!url) return;
+      try {
+        await navigator.clipboard.writeText(url);
+      } catch {
+        // Fallback copy
+        const temp = document.createElement('textarea');
+        temp.value = url;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand('copy');
+        document.body.removeChild(temp);
+      }
+
+      saveCurrentLinkToHistory();
+
+      if (copyBtnLabel && copyBtn) {
+        const copyText = copyBtn.getAttribute('data-copy-text') || 'Copy WhatsApp Link';
+        const copiedText = copyBtn.getAttribute('data-copied-text') || 'Copied!';
+        const copyBanner = document.getElementById('copy-notification-banner');
+        copyBtnLabel.textContent = copiedText;
+        copyBtn.classList.add('ring-4', 'ring-[#76C457]');
+        if (copyBanner) {
+          copyBanner.textContent = copiedText;
+          copyBanner.classList.remove('hidden');
+        }
+        setTimeout(() => {
+          copyBtnLabel.textContent = copyText;
+          copyBtn.classList.remove('ring-4', 'ring-[#76C457]');
+          copyBanner?.classList.add('hidden');
+        }, 2200);
+      }
+    });
+
+    // Save to history when testing link in WhatsApp
+    testWaBtn?.addEventListener('click', () => {
+      saveCurrentLinkToHistory();
+    });
+
+    // Download QR Code as High-Res PNG
+    downloadPngBtn?.addEventListener('click', async () => {
+      const url = urlReadout?.textContent?.trim() || 'https://wa.me/12345678900';
+      const exportCanvas = document.createElement('canvas');
+      await QRCode.toCanvas(exportCanvas, url, {
+        width: 1024,
+        margin: 2,
+        color: {
+          dark: '#1A2E15',
+          light: '#FFFFFF',
+        },
+        errorCorrectionLevel: 'H',
+      });
+      const dataUrl = exportCanvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = `whatzplink-qr-${selectedDial}.png`;
+      link.href = dataUrl;
+      link.click();
+      saveCurrentLinkToHistory();
+    });
+
+    // Download QR Code as Scalable Vector SVG
+    downloadSvgBtn?.addEventListener('click', () => {
+      if (!latestSvgString) return;
+      const blob = new Blob([latestSvgString], { type: 'image/svg+xml;charset=utf-8' });
+      const blobUrl = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.download = `whatzplink-qr-${selectedDial}.svg`;
+      link.href = blobUrl;
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+      saveCurrentLinkToHistory();
+    });
+
+    // Initial render
+    updateEngine(false);
+    renderHistoryList();
+  }
+
+  initWhatsAppGenerator();
+</script>

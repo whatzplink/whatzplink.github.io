@@ -1,0 +1,111 @@
+---
+import '../styles/global.css';
+import { languages, type Lang, useTranslations, getLocalizedPath } from '../i18n/ui';
+import Header from '../components/Header.astro';
+import JsonLdSchema from '../components/JsonLdSchema.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const baseUrl = (Astro.site ? Astro.site.toString() : 'https://whatzplink.github.io').replace(/\/$/, '');
+const canonicalUrl = `${baseUrl}${getLocalizedPath(lang)}`;
+const ogImageUrl = `${baseUrl}/og-image.svg`;
+const currentOgLocale = languages[lang].ogLocale;
+const alternateLocales = Object.entries(languages)
+  .filter(([code]) => code !== lang)
+  .map(([, meta]) => meta.ogLocale);
+---
+
+<!doctype html>
+<html lang={lang} dir={languages[lang].dir}>
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-F5P8W5SQTN"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-F5P8W5SQTN');
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{t.meta.title}</title>
+    <meta name="description" content={t.meta.description} />
+    <meta name="keywords" content={t.meta.keywords} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#2A7C13" />
+
+    <!-- Hreflang Alternate Network (8 Supported Languages + x-default) -->
+    {
+      Object.keys(languages).map((code) => {
+        const href = `${baseUrl}${getLocalizedPath(code as Lang)}`;
+        return <link rel="alternate" hreflang={code} href={href} />;
+      })
+    }
+    <link rel="alternate" hreflang="x-default" href="https://whatzplink.github.io/" />
+
+    <!-- Open Graph Metadata -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={t.meta.title} />
+    <meta property="og:description" content={t.meta.description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={t.meta.title} />
+    <meta property="og:site_name" content="WhatzpLink" />
+    <meta property="og:locale" content={currentOgLocale} />
+    {
+      alternateLocales.map((altLocale) => (
+        <meta property="og:locale:alternate" content={altLocale} />
+      ))
+    }
+
+    <!-- Twitter Card Metadata -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={t.meta.title} />
+    <meta name="twitter:description" content={t.meta.description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={t.meta.title} />
+
+    <!-- Strict Zero-Fake-Rating JSON-LD Structured Data -->
+    <JsonLdSchema lang={lang} />
+
+    <!-- Inline Theme Initializer (Light Mode Default #FFF8CF) -->
+    <script is:inline>
+      (function () {
+        try {
+          const saved = localStorage.getItem('whatzplink_theme');
+          if (saved === 'dark') {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col bg-[#FFF8CF] dark:bg-[#0D170B] text-[#1A2E15] dark:text-[#FFF8CF] antialiased selection:bg-[#76C457] selection:text-[#1A2E15]">
+    <Header lang={lang} />
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <!-- Register Offline-First PWA Service Worker -->
+    <script is:inline>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('/sw.js').catch(function () {});
+        });
+      }
+    </script>
+  </body>
+</html>

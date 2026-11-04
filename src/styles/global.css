@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Core Palette Tokens */
+  --deep-forest-emerald: #2A7C13;
+  --vibrant-leaf-green: #76C457;
+  --soft-buttercream-light: #FFF8CF;
+  --warm-peach-sand: #FBE6C2;
+  --deep-charcoal-ink: #1A2E15;
+
+  /* Light Mode Semantic Variables (Default) */
+  --bg-primary: #FFF8CF;
+  --bg-surface-card: #FBE6C2;
+  --workspace-box-bg: #FFFFFF;
+  --primary-action-btn: #2A7C13;
+  --primary-action-text: #FFFFFF;
+  --secondary-accent-surface: #76C457;
+  --highlight-pill-badge: #FBE6C2;
+  --border-color: #76C457;
+  --text-primary: #1A2E15;
+  --text-secondary: #3B5234;
+}
+
+html.dark {
+  /* Dark Mode Semantic Variables */
+  --bg-primary: #0D170B;
+  --bg-surface-card: #152412;
+  --workspace-box-bg: #1B2E17;
+  --primary-action-btn: #76C457;
+  --primary-action-text: #0D170B;
+  --secondary-accent-surface: #2A7C13;
+  --highlight-pill-badge: #243B1F;
+  --border-color: #2A7C13;
+  --text-primary: #FFF8CF;
+  --text-secondary: #FBE6C2;
+}
+
+@layer base {
+  html {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    scroll-behavior: smooth;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1), color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-x: hidden;
+  }
+}
+
+/* Smooth Animations for Interactive Generator Box */
+@keyframes pulse-emerald {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(118, 196, 87, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(118, 196, 87, 0);
+  }
+}
+
+@keyframes bubble-pop {
+  0% {
+    opacity: 0.5;
+    transform: translateY(6px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-pulse-emerald {
+  animation: pulse-emerald 0.8s cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.animate-bubble-pop {
+  animation: bubble-pop 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--deep-forest-emerald);
+}
